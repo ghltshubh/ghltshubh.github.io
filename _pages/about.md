@@ -2,16 +2,14 @@
 layout: about-custom
 title: about
 permalink: /
-subtitle: Researcher.ML Engineer.Somewhere between Art & Science
+subtitle: Researcher·ML Engineer·Somewhere between Art & Science
 
 profile:
   align: right
   image: prof_pic_square.jpg
   image_circular: true # crops the image to make it circular
   address: >
-    <p>555 your office number<br>
-       123 your address street<br>
-       Your City, State 12345</p>
+    <p>Huntsville, Alabama</p>
 
 news: true  # includes a list of news items
 latest_posts: true  # includes a list of the newest posts
