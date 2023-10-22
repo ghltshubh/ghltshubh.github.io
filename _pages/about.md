@@ -2,7 +2,7 @@
 layout: about-custom
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: Researcher.ML Engineer.Somewhere between Art & Science
 
 profile:
   align: right
