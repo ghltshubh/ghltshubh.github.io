@@ -2,7 +2,7 @@
 layout: about-custom
 title: about
 permalink: /
-subtitle: Researcher·ML Engineer·Somewhere between Art & Science
+subtitle: Researcher · ML Engineer · In harmonic motion between Art & Science
 
 profile:
   align: right
