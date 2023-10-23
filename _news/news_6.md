@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Presented our work at Computational Science and Computational Intelligence (CSCI 2020) conference! :microphone:
+Presented our [work](https://ieeexplore.ieee.org/document/9457561) at Computational Science and Computational Intelligence (CSCI'20) conference! :microphone:
