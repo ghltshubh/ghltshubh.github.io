@@ -24,4 +24,4 @@ Prior to that I was a Scalable Deep Learning [researcher](https://www.olcf.ornl.
 
 In my previous avatar I was a UX Designer and Product Architect. I've interests that range from philosophy, science and technology to arts, music and traveling. My current hobbies include building things out of salvaged materials, tinkering with Raspberry Pi and developing workflows (mostly machine learning) that run on the Raspberry Pi cluster that I built.
 
-I have a master in Data Science from Illinois Institute of Technology Chicago and a bachelor in Design from Indian Institute of Technology Guwahati (Two IITs, I get that joke a lot :smile:).  I have always tried to balance my creativity with my scientific pursuit. I like having conversations about meaning of life, universe and everything in between.
+I have a master in Data Science from Illinois Institute of Technology Chicago and a bachelor in Design from Indian Institute of Technology Guwahati (Two IITs, I get that joke a lot :smile:).  I have always tried to balance my creativity with my scientific pursuit.
