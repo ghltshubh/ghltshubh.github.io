@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Joined NASA IMPACT project as a research scientist.   :tada:👨🏽‍🔬
+Joined NASA IMPACT as a research scientist. :tada:👨🏽‍🔬

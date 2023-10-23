@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started working as a scalable deep learning post masters researcher at ORNL :tada: 👨🏽‍🔬
+Started working as a scalable deep learning post masters researcher at ORNL. :tada:👨🏽‍🔬

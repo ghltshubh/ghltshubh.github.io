@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Started masters in [Data Science](https://www.iit.edu/academics/programs/data-science-mas) at Illinois Institute of Technology Chicago
+Started masters at Illinois Institute of Technology Chicago. 📚

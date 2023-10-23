@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Graduated with a master in Data Science from Illinois Institute of Technolgy Chicago. :mortar_board: :champagne:
+Graduated with a master in Data Science from Illinois Institute of Technolgy Chicago. :mortar_board::champagne:
