@@ -16,7 +16,7 @@ latest_posts: true  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-I am currently enrolled as a Data Science And Engineering PhD student at [The Bredesen Center, UTK](https://bredesencenter.utk.edu).
+I am an oncoming Data Science And Engineering PhD student at [The Bredesen Center, UTK](https://bredesencenter.utk.edu).
 
 Previously,  I worked as a research scientist at [NASA IMPACT](https://science.msfc.nasa.gov/2021/04/22/impact-collaborates-on-the-global-flood-detection-challenge) project where I leveraged NASA earth data and machine learning to solve [remote sensing problems](https://www.earthdata.nasa.gov/learn/articles/esds-at-agu-2021). As part of the group’s  outreach program I also organized a joint NASA/IEEE Geoscience and Remote Sensing Society (GRSS) competition on applying AI to the [remote detection of floods](https://www.earthdata.nasa.gov/learn/articles/impact-flood-competition).
 
