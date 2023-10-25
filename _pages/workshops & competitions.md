@@ -4,7 +4,7 @@ title: workshops & competitions
 permalink: /workshops&competitions/
 description: A growing collection of your cool projects.
 nav: true
-nav_order: 3
+nav_order: 4
 display_categories: [workshops, competitions]
 horizontal: false
 ---
