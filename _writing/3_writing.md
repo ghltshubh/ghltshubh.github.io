@@ -5,7 +5,7 @@ description: "This workshop introduced ML lifecycle to the participants and demo
 outlet: IEEE Geoscience and Remote Sensing Society (GRSS)
 date: "2021-06-03 19:29:00"
 redirect: https://www.grss-ieee.org/community/groups-initiatives/high-performance-and-disruptive-computing-in-remote-sensing-hdcrs/hdcrs-summer-school-2021/
-img: IEEE-Certificate-ShubhankarGahlot.jpg
-importance: 3
+img: 
+importance: 
 category: workshops
 ---
