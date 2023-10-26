@@ -1,11 +1,11 @@
 ---
 layout: page
-title: "Global Flood Detection Challenge"
-description: The flood event detection contest seeked to develop approaches to delineate open water flood areas as an effort to identify flood extent, an impactful disaster that occurs frequently throughout the world. The competition involved a supervised learning task -- participants developed algorithms to identify flood pixels after training their algorithm against a training set of synthetic aperture radar (SAR) images.
-outlet: NASA IMPACT & IGRSS
-date: "2021-04-14 19:29:00"
-redirect: https://www.earthdata.nasa.gov/learn/articles/impact-flood-competition
+title: "Scaling Machine Learning for Remote Sensing using Cloud computing"
+description: "The workshop introduced ML lifecycle to the participants and demonstrated end-to-end remote sensing ML application from data preparation to deployment using a cloud computing environment such Amazon Web Services (AWS)."
+outlet: IEEE Geoscience and Remote Sensing Society (GRSS)
+date: "2021-06-03 19:29:00"
+redirect: https://www.grss-ieee.org/community/groups-initiatives/high-performance-and-disruptive-computing-in-remote-sensing-hdcrs/hdcrs-summer-school-2021/
 img: 
-importance: 1
-category: competitions
+importance: 2
+category: workshops
 ---
