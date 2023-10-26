@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Building and installing tensorflow on Summit (IBM Power 9, NVIDIA V 100) supercomputer from source"
-description: A step by step guide to build Tensorflow 1.12 from source on an IBM Power9 + NVIDIA V100 system using CUDA 9.2, CUDNN 7.5 and NCCL 2.4.
+description: A step by step guide to build and install Tensorflow 1.12 from source on an IBM Power9 + NVIDIA V100 system using CUDA 9.2, CUDNN 7.5 and NCCL 2.4.
 outlet: Youtube
 date: "2019-03-04 19:29:00"
 redirect: https://youtu.be/N4CEDmw7ZiI
