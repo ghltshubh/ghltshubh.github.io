@@ -6,6 +6,6 @@ outlet: NASA IMPACT & IGRSS
 date: "2021-04-14 19:29:00"
 redirect: https://www.earthdata.nasa.gov/learn/articles/impact-flood-competition
 img: 
-importance: 
+importance: 2
 category: competitions
 ---
