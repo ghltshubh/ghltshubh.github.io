@@ -1,12 +1,12 @@
 # ag-folio
 
-My fork of [al-folio](https://github.com/alshedivat/al-folio) with some **minor** stylistic modifications. This is the theme that I use for my [personal website](https://abstractgeek.github.io). 
+My fork of [al-folio](https://github.com/alshedivat/al-folio) with some **minor** stylistic modifications. 
 
 # al-folio
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [maintainers]: https://img.shields.io/badge/maintainers-4-success.svg 'Number of maintainers'
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
+[![Deploy Jekyll site to Pages](https://github.com/ghltshubh/ghltshubh.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/ghltshubh/ghltshubh.github.io/actions/workflows/jekyll.yml)
 [![deploy](https://github.com/alshedivat/al-folio/actions/workflows/deploy.yml/badge.svg)](https://github.com/alshedivat/al-folio/actions/workflows/deploy.yml)
 [![demo](https://img.shields.io/badge/theme-demo-brightgreen.svg)](https://alshedivat.github.io/al-folio/)
 [![GitHub contributors](https://img.shields.io/github/contributors/alshedivat/al-folio.svg)](https://github.com/alshedivat/al-folio/graphs/contributors/)
