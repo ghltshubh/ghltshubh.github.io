@@ -176,12 +176,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
-  workshops:
+  writing:
     output: true
-    permalink: /workshops/:path/
-  # writing:
-  #   output: true
-  #   permalink: /writing/:path/
+    permalink: /writing/:path/
 
 announcements:
   enabled: true
