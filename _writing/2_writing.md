@@ -7,5 +7,5 @@ date: "2021-09-18 19:29:00"
 redirect: https://en.wikipedia.org/wiki/Writing
 img: 
 importance: 2
-category: features
+category: workshops
 ---

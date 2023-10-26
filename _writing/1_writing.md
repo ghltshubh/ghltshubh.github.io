@@ -7,6 +7,6 @@ date: "2021-09-17 19:29:00"
 redirect: https://en.wikipedia.org/wiki/Writing
 img: assets/img/12.jpg
 importance: 1
-category: features
+category: workshops
 highlighted: true
 ---
