@@ -5,7 +5,7 @@ description: A step by step guide to build and install Tensorflow from source on
 outlet: Youtube
 date: "2019-03-04 19:29:00"
 redirect: https://youtu.be/N4CEDmw7ZiI
-img: assets/img/12.jpg
+img: 
 importance: 1
 category: workshops
 highlighted: true
