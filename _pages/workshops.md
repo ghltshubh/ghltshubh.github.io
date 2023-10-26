@@ -1,6 +1,6 @@
 ---
 layout: page
-title: workshops & competitions
+title: workshops
 permalink: /workshops/
 description: List of worshops and competitions that I have organized.
 nav: true
