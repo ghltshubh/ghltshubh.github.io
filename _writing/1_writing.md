@@ -1,12 +1,11 @@
 ---
 layout: page
-title: "Building and installing tensorflow on Summit supercomputer from source"
-description: A step by step guide to build and install Tensorflow from source on an IBM Power 9 & NVIDIA V100 system using CUDA, CUDNN and NCCL.
-outlet: Youtube
-date: "2019-03-04 19:29:00"
-redirect: https://youtu.be/N4CEDmw7ZiI
+title: "Enabling Analysis in the Cloud Using NASA Earth Science Data"
+description: The workshop provided an overview of the NASA’s Earth Science Data Systems (ESDS) cloud vision, discussed what this means for data users, and guided participants through workflow demonstrations highlighting data discovery, accessibility, and usability on and off the cloud for AI and ML applications.
+outlet: American Geophysical Union (AGU)
+date: "2021-12-12 19:29:00"
+redirect: https://agu.confex.com/agu/fm21/meetingapp.cgi/Session/124026
 img: 
 importance:
 category: workshops
-highlighted: true
 ---
