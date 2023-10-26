@@ -6,7 +6,7 @@ outlet: Youtube
 date: "2019-03-04 19:29:00"
 redirect: https://youtu.be/N4CEDmw7ZiI
 img: 
-importance: 3
+importance: 
 category: workshops
 highlighted: true
 ---
