@@ -9,7 +9,7 @@ display_categories: [workshops, competitions]
 horizontal: false
 only_highlights: false
 ---
-
+<!-- workshop.md is linked to _writing directory that contains all competition and workshop details-->
 <!-- pages/writing.md -->
 <div class="writing">
 {%- if site.enable_project_categories and page.display_categories -%}
