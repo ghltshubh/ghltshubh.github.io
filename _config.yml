@@ -182,6 +182,9 @@ collections:
   workshops:
     output: true
     permalink: /workshops/:path/
+  datasets:
+    output: true
+    permalink: /datasets/:path/
 
 announcements:
   enabled: true
