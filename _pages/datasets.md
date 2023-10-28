@@ -1,18 +1,49 @@
 ---
 layout: page
-permalink: /datasets/
 title: datasets
+permalink: /datasets/
 description: Published datasets
-years: [1967, 1956, 1950, 1935, 1905]
 nav: true
-nav_order: 3
+nav_order: 4
+display_categories: [Flood Extent Detection Data]
+horizontal: true
+only_highlights: false
 ---
-<!-- _pages/publications.md -->
-<div class="publications">
+<!-- datasets.md is linked to _writing directory that contains all competition and datasets details-->
 
-{%- for y in page.years %}
-  <h2 class="year">{{y}}</h2>
-  {% bibliography -f {{ site.scholar.bibliography }} -q @*[year={{y}}]* %}
-{% endfor %}
+<!-- pages/datasets.md -->
+<div class="writing">
+{%- if site.enable_project_categories and page.display_categories -%}
+  <!-- Display categorized datasets -->
+  {%- for category in page.display_categories -%}
+  <h2 class="category">{{ category }}</h2>
+  {%- if page.only_highlights -%}
+    {%- assign categorized_projects = site.worksop | where: "highlighted", true | where: "category", category -%}
+  {%- else -%}
+    {%- assign categorized_projects = site.datasets | where: "category", category -%}
+  {%- endif -%}
+  {%- assign sorted_projects = categorized_projects | sort: "importance" | sort: "date" -%}
+  <!-- Generate cards for each writing type -->
+  <div class="list-style mx-auto">
+    {%- for project in categorized_projects -%}
+      {% include datasets.html %}
+    {%- endfor %}
+  </div>
+  {% endfor %}
+
+{%- else -%}
+<!-- Display writing without categories -->
+  {%- if page.only_highlights -%}
+  {%- assign sorted_projects = site.datasets | where: "highlighted", true | sort: "importance" | sort: "date" -%}
+  {%- else -%}
+  {%- assign sorted_projects = site.datasets | sort: "importance" | sort: "date" -%}
+  {%- endif -%}
+  <!-- Generate cards for each project -->
+  <div class="list-style mx-auto">
+    {%- for project in sorted_projects -%}
+      {% include datasets.html %}
+    {%- endfor %}
+  </div>
+{%- endif -%}
 
 </div>
