@@ -2,11 +2,11 @@
 layout: page
 title: datasets
 permalink: /datasets/
-description: Published datasets
+description: published dataset(s)
 nav: true
 nav_order: 4
-display_categories: [Flood Extent Detection Data]
-horizontal: true
+display_categories: [2022]
+horizontal: false
 only_highlights: false
 ---
 <!-- datasets.md is linked to _writing directory that contains all competition and datasets details-->
