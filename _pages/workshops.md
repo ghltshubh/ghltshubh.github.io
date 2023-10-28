@@ -2,7 +2,7 @@
 layout: page
 title: workshops
 permalink: /workshops/
-description: List of worshops and competitions that I have organized.
+description: List of organized workshops and competitions
 nav: true
 nav_order: 4
 display_categories: [workshops, competitions]
