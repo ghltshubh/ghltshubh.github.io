@@ -229,8 +229,6 @@ keep_files:
 plugins:
   - jekyll-archives
   - jekyll-diagrams
-  # - jekyll-spaceship
-  # - jekyll-mermaid
   - jekyll-email-protect
   - jekyll-feed
   - jekyll-imagemagick
