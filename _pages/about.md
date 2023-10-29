@@ -2,7 +2,7 @@
 layout: about-custom
 title: about
 permalink: /
-subtitle: ML Engineer · Researcher · In harmonic motion between Art & Science
+subtitle: Data Scientist · Researcher · In harmonic motion between Art & Science
 
 profile:
   align: right
