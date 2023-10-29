@@ -5,6 +5,7 @@ group :jekyll_plugins do
     gem 'jekyll-archives'
     gem 'jekyll-diagrams'
     # gem 'jekyll-spaceship'
+    gem 'jekyll-mermaid'
     gem 'jekyll-email-protect'
     gem 'jekyll-feed'
     gem 'jekyll-imagemagick'
