@@ -229,6 +229,7 @@ keep_files:
 plugins:
   - jekyll-archives
   - jekyll-diagrams
+  - jekyll-spaceship
   - jekyll-email-protect
   - jekyll-feed
   - jekyll-imagemagick
