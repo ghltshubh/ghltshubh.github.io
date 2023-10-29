@@ -134,7 +134,7 @@ pagination:
 
 related_blog_posts:
   enabled: true
-  max_related: 5
+  max_related: 3
 
 # Giscus comments (RECOMMENDED)
 # Follow instructions on https://giscus.app/ to setup for your repo to fill out
@@ -231,8 +231,7 @@ plugins:
   - jekyll-diagrams
   - jekyll-email-protect
   - jekyll-feed
-  - mini_magick
-  # - jekyll-imagemagick
+  - jekyll-imagemagick
   - jekyll-link-attributes
   - jekyll-minifier
   - jekyll-paginate-v2
