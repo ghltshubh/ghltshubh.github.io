@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-First research [published](https://sc19.supercomputing.org/presentation/index-id=ws_dls120&sess=sess101.html) at Super Computing (SC'19) conference! 🥇
+First [published](https://sc19.supercomputing.org/presentation/index-id=ws_dls120&sess=sess101.html) research at Super Computing (SC'19) conference! 🥇
