@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Flood extent detection
-description: Developed & benchmark DL segmentation models for detecting flood extent in open water bodies for Global Flood Detection Challenge organized by NASA-IMPACT.
+description: Developed & benchmarked DL segmentation models for detecting flood extent in open water bodies.
 img: assets/img/3.jpg
 importance: 2
 category: machine learning
