@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Flood extent detection
-description: Developed & benchmarked DL segmentation models for detecting flood extent in open water bodies.
+description: Developed baseline DL segmentation models for detecting flood extent in open water bodies.
 img: assets/img/3.jpg
 importance: 2
 category: machine learning
