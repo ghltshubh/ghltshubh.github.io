@@ -1,10 +1,10 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image
+title: Flood extent detection
+description: Developed & benchmark DL segmentation models for detecting flood extent in open water bodies for Global Flood Detection Challenge organized by NASA-IMPACT.
 img: assets/img/3.jpg
 importance: 2
-category: work
+category: machine learning
 ---
 
 Every project has a beautiful feature showcase page.
