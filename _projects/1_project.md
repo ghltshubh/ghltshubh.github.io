@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Deep learning workflow on summit
+title: Deep learning workflow
 description: Workflow for single/multi GPU deep learning training with hyperparam tracking, code checkpoint and model saving.
 img: assets/img/pytorch_logo_icon_169823.jpg
 redirect: https://github.com/ghltshubh/DLworkflowWithPytorch
