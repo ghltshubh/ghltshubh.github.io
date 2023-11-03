@@ -16,7 +16,7 @@ latest_posts: true  # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
-I am an oncoming Data Science And Engineering PhD candidate at [The Bredesen Center, UTK](https://bredesencenter.utk.edu).
+I am an oncoming Earth and Ocean Sciences PhD candidate at The University of Victoria.
 
 Previously,  I worked as a research scientist at [NASA IMPACT](https://impact.earthdata.nasa.gov/) project where I leveraged NASA earth data and machine learning to solve [remote sensing problems](https://www.earthdata.nasa.gov/learn/articles/esds-at-agu-2021). As part of the group’s outreach program I also co-organized a joint NASA/IEEE Geoscience and Remote Sensing Society (GRSS) [challenge](https://science.msfc.nasa.gov/2021/04/22/impact-collaborates-on-the-global-flood-detection-challenge) on applying AI to open water [flood extent detection](https://www.earthdata.nasa.gov/learn/articles/impact-flood-competition). The competition recieved [137 participants from 10 countries and over 400 submissions](https://science.msfc.nasa.gov/2021/09/09/presentation-of-flood-extent-detection-competition-results-at-the-ieee-emerging-techniques-in-computational-intelligence-etci-2021/).
 
