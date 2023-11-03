@@ -22,4 +22,4 @@ category: hardware
 </div>
 
 ## Why build a cluster?
-I urge to build my own cluster came right after I started working at Oak Ridge National Lab and saw a bunch of supercomputers and came to realize their significance in the workd of parallel computing. I wanted to build my own cluster because I wanted to learn how to do it. I also wanted to build my own cluster because I wanted to build my own cluster.
+The urge to build my own cluster came right after I started working at Oak Ridge National Lab and saw a bunch of supercomputers and came to realize their significance in the world of parallel computing. I wanted to build my own cluster because I wanted to learn how to do it. 
