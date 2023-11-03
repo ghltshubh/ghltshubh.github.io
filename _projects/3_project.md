@@ -10,7 +10,7 @@ category: hardware
 ## This is the documentation of how I built my own cluster and now you can too. 
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="assets/img/proj_3.jpg" title="raspberry pi cluster" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="assets/img/proj_3-1.jpg" title="raspberry pi cluster" class="img-fluid rounded z-depth-1" %}
 </div>
 
 ## Why build a cluster?
