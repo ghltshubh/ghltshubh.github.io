@@ -9,15 +9,16 @@
 - title: Education
   type: time_table
   contents:
+    - title: Product Management for AI & Data Science
+      institution: 365datascience <a href="https://learn.365datascience.com/certificates/CC-23F8F6E7BC/">[Certificate]</a>
+      year: 2022
     - title: Data Science, M.S.
       institution: Illinois Institute of Technology, Chicago
       year: 2016-18
     - title: Design (HCI), B.Des.
       institution: Indian Institute of Technology, Guwahati (India)
       year: 2008-12
-    - title: Product Management for AI & Data Science
-      institution: 365datascience ([Online](https://learn.365datascience.com/certificates/CC-23F8F6E7BC/))
-      year: 2022
+
 
 - title: Skills
   type: list
