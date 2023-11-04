@@ -15,7 +15,7 @@
     - title: Data Science, M.S.
       institution: Illinois Institute of Technology, Chicago
       year: 2016-18
-    - title: Design (HCI), B.Des.
+    - title: Design, B.Des.
       institution: Indian Institute of Technology, Guwahati (India)
       year: 2008-12
 
@@ -43,16 +43,16 @@
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: Software developer & Data Engineer
+      institution: Kavita Antiques
+      year: 2022 - 2023
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
+        - title: Data Analysis
           contents:
-            - Sub-description 1.
-            - Sub-description 2.
+            - Research, develop and deploy various strategies for antique products based on demand and supply modeling techniques.
+        - title: Software Development: 
+          contents:
+            - Developed the online business tools including blog, e-commence store, and online payment system.
     - title: Visiting Professor
       institution: California Institute of Technology, Pasadena, California, US
       year: 1933
