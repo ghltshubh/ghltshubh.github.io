@@ -26,18 +26,15 @@
     - name: Machine Learning
       value: "3+ years’ experience with Feature Engineering Classification, Regression XGBoost, SVM, K-Means, Decision Trees, Deep Learning, Bayesian Inference, Dim. Reduction: PCA, SVD, KDE, Simulation, Visualization, AB-testing, Geospatial data science."
     - name: Programming
-      value: "4+ years’ experience with Python (NumPy, Pandas, mpi4py, Matplotlib,
-      etc.), SQL, HDF5, PyTorch, TensorFlow, JavaScript, Docker, NVIDIA Rapids, AWS, Cloud computing."
+      value: "4+ years’ experience with Python (NumPy, Pandas, mpi4py, Matplotlib, etc.), SQL, HDF5, PyTorch, TensorFlow, JavaScript, Docker, NVIDIA Rapids, AWS, Cloud computing."
     - name: Data engineering
       value: "2+ years’ experience with data engineering, distributed ML (Ansible, Apache Airflow, Prefect, Kubernetes, GitHub CI/CD, mpi4py, OpenMPI)"
     - name: Visualization
       value: "3+ years’ experience with data visualization (charts, dashboards, data tools)."
-    - name: Management 
-      value: "2+ years’ experience managing projects, teammates. One of the managed projects
-      Rutogo was acquired by ixigo.com. (<a href="https://yourstory.com/2015/08/ixigo-acquires-rutogo">article</a>)"
+    - name: Management
+      value: "2+ years’ experience managing projects, teammates. One of the managed projects Rutogo was acquired by ixigo.com. (<a href="https://yourstory.com/2015/08/ixigo-acquires-rutogo">article</a>)"
     - name: Communication
-      value: "2+ years’ experience presenting, writing (articles, papers, blogs, software
-      documentation), webcasts."
+      value: "2+ years’ experience presenting, writing (articles, papers, blogs, software documentation), webcasts."
 
 - title: Experience
   type: time_table
