@@ -36,6 +36,11 @@
     - name: Communication
       value: "2+ years’ experience presenting, writing (articles, papers, blogs, software documentation), webcasts."
 
+- title: Coursework
+  type: list
+  contents: 
+    Probability, Statistical Learning, Machine Learning, Big Data Technologies, Data Structures, Geospatial Vision and Visualization, Neural Networks and Deep Learning, Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization.
+
 - title: Experience
   type: time_table
   contents:
