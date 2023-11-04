@@ -19,7 +19,6 @@
       institution: Indian Institute of Technology, Guwahati (India)
       year: 2008-12
 
-
 - title: Skills
   type: map
   contents:
@@ -39,7 +38,7 @@
 - title: Coursework
   type: list
   contents: 
-    Probability, Statistical Learning, Machine Learning, Big Data Technologies, Data Structures, Geospatial Vision and Visualization, Neural Networks and Deep Learning, Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization.
+    "Probability, Statistical Learning, Machine Learning, Big Data Technologies, Data Structures, Geospatial Vision and Visualization, Neural Networks and Deep Learning, Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization."
 
 - title: Experience
   type: time_table
