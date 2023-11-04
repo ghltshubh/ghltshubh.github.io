@@ -24,7 +24,7 @@
   type: map
   contents:
     - name: Machine Learning
-      value: 3+ years’ experience with Feature Engineering, Classification, Regression XGBoost, SVM, K-Means, Decision Trees, Deep Learning, Bayesian Inference, Dim. Reduction: PCA, SVD, KDE, Simulation, Visualization, AB-testing, Geospatial data science.
+    - value: 3+ years’ experience with Feature Engineering Classification, Regression XGBoost, SVM, K-Means, Decision Trees, Deep Learning, Bayesian Inference, Dim. Reduction: PCA, SVD, KDE, Simulation, Visualization, AB-testing, Geospatial data science.
     - name: Programming
     - value: 4+ years’ experience with Python (NumPy, Pandas, mpi4py, Matplotlib,
       etc.), SQL, HDF5, PyTorch, TensorFlow, JavaScript, Docker, NVIDIA Rapids, AWS, Cloud computing.
