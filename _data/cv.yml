@@ -193,6 +193,8 @@
           year: Oct'21
           contents:
             - Tested and benchmarked data pipeline ingress capability for Harmonized Landsat Sentinel 2 <a href="https://hls.gsfc.nasa.gov/">[HLS-2]</a>
+        - title: Tools
+          contents: Python, AWS CDK, PostgreSQL, QGIS, iMovie
 
 - title: Other Interests
   type: list
