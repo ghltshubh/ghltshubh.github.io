@@ -200,8 +200,7 @@
         - title: Hurricane eye detection
           year: Sep'21
           contents: 
-            - Developed DL point detection models for locating coordinates of hurricane 
-          eye in GOES-16 data.
+            - Developed DL point detection models for locating coordinates of hurricane eye in GOES-16 data.
         - title: Flood extent detection 
           year: May'21
           contents: 
