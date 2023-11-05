@@ -5,6 +5,8 @@
       value: Shubhankar Gahlot
     - name: Languages
       value: English, Hindi
+    - name: Contact
+      values: sgahlot@hawk.iit.edu
 
 - title: Education
   type: time_table
