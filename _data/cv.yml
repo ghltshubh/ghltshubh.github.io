@@ -199,17 +199,20 @@
       description:
         - title: Hurricane eye detection
           year: Sep'21
-          contents: Developed DL point detection models for locating coordinates of hurricane 
+          contents: 
+            - Developed DL point detection models for locating coordinates of hurricane 
           eye in GOES-16 data.
         - title: Flood extent detection 
           year: May'21
-          contents: Developed benchmark DL segmentation models for detecting flood extent in open water bodies for <a href="https://earthdata.nasa.gov/learn/articles/impact-flood-competition">Global Flood Detection Challenge</a> organized by NASA-IMPACT. 
+          contents: 
+            - Developed benchmark DL segmentation models for detecting flood extent in open water bodies for <a href="https://earthdata.nasa.gov/learn/articles/impact-flood-competition">Global Flood Detection Challenge</a> organized by NASA-IMPACT. 
         - title: PM2.5 estimation
           year: Dec'20
-          contents: Developed a gradient boosted tree model to estimate the amount of PM2.5 in the atmosphere.
+          contents: 
+            - Developed a gradient boosted tree model to estimate the amount of PM2.5 in the atmosphere.
         - title: Tools
           contents: Python, PyTorch, Numpy, Scikit-learn, JupyterLab, Bash
-
+    - title: <a href="https://github.com/ghltshubh/DLworkflowWithPytorch">DLWorkflowWithPytorch</a>
 
 - title: Other Interests
   type: list
