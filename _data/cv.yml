@@ -186,9 +186,13 @@
       description:
         - title: Machine Learning
           year: Feb'22
+          contents:
             - Designed tests to benchmark in-house Natural Language Processing (NLP) model (bert-e) against the current state of the art (SOTA) models (scibert and bert) for extracting Earth Science terms from their definitions.
             - Generated visualizations and animations to compare inferences from different DL segmentation models for smoke detection.
-
+        - title: Cloud Computing
+          year: Oct'21
+          contents:
+            - Tested and benchmarked data pipeline ingress capability for Harmonized Landsat Sentinel 2 <a href="https://hls.gsfc.nasa.gov/">[HLS-2]</a>
 
 - title: Other Interests
   type: list
