@@ -44,12 +44,12 @@
   type: time_table
   contents:
     - title: Software developer & Data Engineer
-      institution: Kavita Antiques
+      institution: Stealth Startup
       year: 2022 - 2023
       description:
         - title: Data Analysis
           contents:
-            - Research, develop and deploy various strategies for more than 50 antique products based on demand and supply modeling techniques.
+            - Research, design and develop various strategies for antique products based on demand and supply modeling techniques.
         - title: Software Development 
           contents:
             - Developed the online business tools including blog, e-commence store, and online payment system.
@@ -67,6 +67,7 @@
         - title: Mentor
           contents:
             - Worked together with other mentors to create cloud learning resources for the <a href="https://github.com/orgs/NASA-Openscapes/teams/mentors-2021">NASA Openscapes workshop</a>.
+        Tools: Python, TensorFlow, PyTorch, Keras, Ansible, Apache Airflow, Docker, AWS
     
     - title: "Scalable Data Science & Deep Learning Deployment Research Associate"
       institution: Oak Ridge National Lab, Oak Ridge, TN
