@@ -107,11 +107,12 @@
         - title: Product Design & Management
           contents: 2+ years of experience in conceptualizing, designing & delivering software products and handling teams of multiple sizes for various products. One of the products conceptualized and managed Rutogo was acquired by ixigo.com <a href="https://yourstory.com/2015/08/ixigo-acquires-rutogo">[article]</a> 
 
-- title: Open Source Projects
+- title: Publications
   type: time_table
   contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
+    - title: <a href="https://mlhub.earth/10.34911/rdnt.ebk43x">Flood Extent Data for Machine Learning, v1.0</a>
+      institution: NASA-IMPACT
+      year: 03-2022
       description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
 
 - title: Honors and Awards
