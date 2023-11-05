@@ -98,9 +98,14 @@
         - title: Tools
           contents: R (ggplot2, MACD), Python (Scipy), Google charts, Plotly
 
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
+    - title: UX/ UI Design Consultant
+      institution: Multiple Clients, India
+      year: 2012-2016
+      description:
+        - title: Software Design
+          contents: 3+ years of experience in designing software for multiple clients in India such as WIPRO Technologies, Asian Paints, etc.
+        - title: Product Design & Management
+          contents: 2+ years of experience in conceptualizing, designing & delivering software products and handling teams of multiple sizes for various products. One of the products conceptualized and managed Rutogo was acquired by ixigo.com <a href="https://yourstory.com/2015/08/ixigo-acquires-rutogo">[article]</a> 
 
 - title: Open Source Projects
   type: time_table
