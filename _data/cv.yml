@@ -67,7 +67,8 @@
         - title: Mentor
           contents:
             - Worked together with other mentors to create cloud learning resources for the <a href="https://github.com/orgs/NASA-Openscapes/teams/mentors-2021">NASA Openscapes workshop</a>.
-        Tools: Python, TensorFlow, PyTorch, Keras, Ansible, Apache Airflow, Docker, AWS
+        - title: Tools
+          contents: Python, TensorFlow, PyTorch, Keras, Ansible, Apache Airflow, Docker, AWS
     
     - title: "Scalable Data Science & Deep Learning Deployment Research Associate"
       institution: Oak Ridge National Lab, Oak Ridge, TN
