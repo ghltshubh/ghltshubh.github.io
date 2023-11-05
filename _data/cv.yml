@@ -215,27 +215,4 @@
 
 
 
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Honors and Awards
-      type: time_table
-      contents:
-        - year: 1921
-          items: 
-            - Nobel Prize in Physics 
-            - Matteucci Medal
-        - year: 2029
-          items: 
-            - Max Planck Medal
-    - title: Honors and Awards
-      type: time_table
-      contents:
-        - year: 1919
-          items: 
-            - Nobel Prize in Physics 
-            - Matteucci Medal
-        - year: 2029
-          items: 
-            - Max Planck Medal
 
