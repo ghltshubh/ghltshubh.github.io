@@ -3,10 +3,11 @@
   contents:
     - name: Full Name
       value: Shubhankar Gahlot
-    - name: Languages
-      value: English, Hindi
-    - name: Contact
-      values: sgahlot@hawk.iit.edu
+    - name: Email
+      value: sgahlot@hawk.iit.edu
+    - name: LinkedIn
+      value: linkedin.com/in/shubhankargahlot
+
 
 - title: Education
   type: time_table
