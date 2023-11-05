@@ -9,3 +9,6 @@ description: This is a description of the page. You can modify it in 'pages/_cv.
 toc:
   sidebar: left
 ---
+
+
+<!-- <embed src="https://ghltshubh.github.io/assets/pdf/Shubhankar Gahlot-11.pdf" type="application/pdf" style="width:100%; height:1000px; margin-left: auto; margin-right: auto;" frameborder="0"/> -->
