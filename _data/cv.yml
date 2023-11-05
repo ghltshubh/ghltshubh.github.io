@@ -163,16 +163,23 @@
 
 
 
-- title: Honors and Awards
+- title: Workshops and competitions
   type: time_table
   contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
+    - title: <a href="https://agu.confex.com/agu/fm21/meetingapp.cgi/Session/124026">Enabling Analysis in the Cloud Using NASA Earth Science Data</a>
+      institution: American Geophysical Union (AGU’21)
+      year: Dec'21
+      description: Cynthia Hall, Makhan Virdi, Alexis Hunzinger, Amy Steiker, Catalina M Oaida, Aaron M Friesz, <u>Shubhankar Gahlot</u> et.al.
+      
+    - title: <a href="https://drive.google.com/file/d/1fxoQmGOo6ghw06s2AaS6KxY1qKypN1vz/view">Scaling Machine Learning for Remote Sensing using Cloud computing</a>
+      institution: IEEE-GRSS Summer school on High-performance and Disruptive Computing in Remote Sensing
+      year: June'21
+      description: Iksha Gurung, Muthukumaran Ramasubramanian, <u>Shubhankar Gahlot</u>, et.al.
+    
+    - title: <a href="https://earthdata.nasa.gov/learn/articles/impact-flood-competition">Global Flood Detection Challenge</a>
+      institution: NASA-IMPACT
+      year: April'21 - June'21
+      description: Shubhankar Gahlot, Iksha Gurung, Muthukumaran Ramasubramanian
 
 - title: Academic Interests
   type: nested_list
