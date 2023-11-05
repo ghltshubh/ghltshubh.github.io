@@ -212,11 +212,14 @@
         - title: Tools
           contents: Python, PyTorch, Numpy, Scikit-learn, JupyterLab, Bash
     - title: <a href="https://github.com/ghltshubh/DLworkflowWithPytorch">DLWorkflowWithPytorch</a>
+      year: Oct'19
+      contents:
+        - title: Software Development
+          contents: Workflow tool for doing single/multi-GPU deep learning with ability to track multiple hyperparameters, code checkpointing and save the best model definition.
+        - title: Tools
+          contents: Python, Pytorch, Numpy, JupyterLab, Bash
 
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+
 
 
 
