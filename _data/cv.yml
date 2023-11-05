@@ -180,10 +180,10 @@
       description: <u>Shubhankar Gahlot</u>, Iksha Gurung, Muthukumaran Ramasubramanian
 
 - title: Projects
-  type: time_table
+  type: nested_list
   contents:
     - title: Benchmarking
-      description:
+      items:
         - title: Machine Learning
           year: Feb'22
           contents:
