@@ -4,7 +4,7 @@ title: datasets
 permalink: /datasets/
 description: published dataset(s)
 nav: true
-nav_order: 4
+nav_order: 3
 display_categories: [2022]
 horizontal: false
 only_highlights: false

@@ -53,6 +53,7 @@
         - title: Software Development 
           contents:
             - Developed the online business tools including blog, e-commence store, and online payment system.
+            
     - title: Research Scientist
       institution: NASA IMPACT, The University of Alabama, Huntsville, AL
       year: 2020 - 2022
@@ -67,12 +68,13 @@
           contents:
             - Worked together with other mentors to create cloud learning resources for the <a href="https://github.com/orgs/NASA-Openscapes/teams/mentors-2021">NASA Openscapes workshop</a>.
 
-
-    
-    
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
+    - title: Scalable Data Science & Deep Learning Deployment Research Associate
+      institution: Oak Ridge National Lab, Oak Ridge, TN
+      year: 2018-2020
+      description:
+        - title: Data Collection & Statistical Analysis
+          contents:
+            - Used regression analysis and similarity measures to evaluate & benchmark various neural network operations based on input parameters and developed best practice guidelines to deploy different ANNs. Presented baseline examples of scaling efficiency 87% for a DL run of ResNet50 running on 1024 nodes (6144 V100 GPUs). Work published in SC’19. <a href="https://drive.google.com/file/d/1IEpSOjwRChuMODNfg3htA8DSXfVekl9q/view">[ppt]</a>, <a href="https://ieeexplore.ieee.org/document/8945109">[publication]</a>
 
     - title: Professor of Theoretical Physics
       institution: Karl-Ferdinand University, Prague, Czechoslovakia
