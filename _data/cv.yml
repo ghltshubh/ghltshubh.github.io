@@ -86,7 +86,8 @@
         - title: Workshop & Tutorial Organization
           contents:
             - Webinar on building Deep Learning libraries (TensorFlow and PyTorch) from source on High Performance Computing (HPC) machines. <a href="https://youtu.be/N4CEDmw7ZiI">[webcast]</a>
-
+        - title: Tools
+          contents: Python, Scipy, TensorFlow, PyTorch, Keras, HDF5, REST API, Docker, Horovod, NCCL, NVPROF, CUDA C, Shell, Git
 
     - title: Professor of Theoretical Physics
       institution: Karl-Ferdinand University, Prague, Czechoslovakia
