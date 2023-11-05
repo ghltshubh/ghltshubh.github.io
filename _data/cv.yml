@@ -94,7 +94,7 @@
       year: 2017
       description:
         - title: Statistical Modeling
-          contents: Implemented a buying strategy based on Moving Average (MACD) technique and tested it against existing regression-based buying strategy which helped in improving the hedging predictions. Results compiled in a technical report. <a href="https://docs.google.com/document/d/16_l9HrFSqVd6u091yW-5g_7MJSpPdGiStQJW2eaS6i0/edit?usp=sharing">report</a>
+          contents: Implemented a buying strategy based on Moving Average (MACD) technique and tested it against existing regression-based buying strategy which helped in improving the hedging predictions. Results compiled in a technical report. <a href="https://docs.google.com/document/d/16_l9HrFSqVd6u091yW-5g_7MJSpPdGiStQJW2eaS6i0/edit?usp=sharing">[report]</a>
         - title: Tools
           contents: R (ggplot2, MACD), Python (Scipy), Google charts, Plotly
 
