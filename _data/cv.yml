@@ -79,7 +79,12 @@
         - title: Modeling & Image Classification
           contents: 
             - Built an ensemble classifier using Resnet for classifying crystallography space groups. Project selected as runner up in SMC Data Challenge 2019. <a href="https://photos.app.goo.gl/AEhAXH52Pm7Asatu8">[presentation]</a>
-
+        - title: Software Development
+          contents:
+            - Develop scripts and tools for easy development, deployment, and benchmarking of Machine Learning & Deep Learning frameworks like TensorFlow, PyTorch and Keras etc. <a href="http://code.ornl.gov/summit">[gitlab]</a>
+        - title: Workshop & Tutorial Organization
+          contents:
+            - Webinar on building Deep Learning libraries (TensorFlow and PyTorch) from source on High Performance Computing (HPC) machines. <a href="https://youtu.be/N4CEDmw7ZiI">[webcast]</a>
 
 
     - title: Professor of Theoretical Physics
