@@ -31,7 +31,7 @@
     - name: Visualization
       value: "3+ years’ experience with data visualization (charts, dashboards, data tools)."
     - name: Management
-      value: 2+ years’ experience managing projects, teammates. One of the managed projects Rutogo was acquired by ixigo.com. <a href="https://yourstory.com/2015/08/ixigo-acquires-rutogo">[article]</a>
+      value: "2+ years’ experience managing projects, teammates. One of the managed projects Rutogo was acquired by ixigo.com. <a href='https://yourstory.com/2015/08/ixigo-acquires-rutogo'>[article]</a>"
     - name: Communication
       value: "2+ years’ experience presenting, writing (articles, papers, blogs, software documentation), webcasts."
 
@@ -53,13 +53,23 @@
         - title: Software Development 
           contents:
             - Developed the online business tools including blog, e-commence store, and online payment system.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+    - title: Research Scientist
+      institution: NASA IMPACT, The University of Alabama, Huntsville, AL
+      year: 2020 - 2022
       description:
-        - Description 1.
-        - Description 2.
+        - title: Machine Learning Research
+        - contents:
+            - Research, develop and deploy various ML / DL technologies focused on NASA’s IMPACT project vision of sustaining life cycle and accessibility of Earth Data.
+        - title: Data Engineering & Software Development
+        - contents:
+            - Create mechanisms for easy deployment and continuous integration of NASA’s IMPACT projects.
+        - title: Mentor
+        - contents:
+            - Worked together with other mentors to create cloud learning resources for the <a href="https://github.com/orgs/NASA-Openscapes/teams/mentors-2021">NASA Openscapes workshop</a>.
+            
 
+    
+    
     - title: Director
       institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
       year: 1917-1933
