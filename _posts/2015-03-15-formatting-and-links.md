@@ -36,3 +36,7 @@ A. The projects covered are:
     4. Image Classification
     5. Spam Detection
     6. Recommendation System
+    7. Customer Segmentation
+    8. Fraud Detection
+    9. Stock Price Prediction
+    10. Time Series Analysis
