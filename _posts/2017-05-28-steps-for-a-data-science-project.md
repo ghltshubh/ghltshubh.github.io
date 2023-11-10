@@ -7,7 +7,7 @@ tags: data-science-vs-machine-learning
 categories: data-science machine-learning
 ---
 
-<i>It all starts with asking an interesting question and then…</i>
+*It all starts with asking an interesting question and then…*
 
 1. Problem definition and planning:
     - Identify problem
@@ -40,4 +40,3 @@ Deployment:
         {% include figure.html path="assets/img/blog-2.png" title="data science ven diagram" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
