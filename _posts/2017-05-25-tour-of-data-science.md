@@ -8,7 +8,7 @@ categories: data-science machine-learning
 ---
 
 Q. What is it?
-A. A tour of machine learning using python. It will make familiar with the typical steps of a data science project like data gathering, data preparation & analysis and developing meaning out of it.
+A. A tour of machine learning using python. It will make familiar with the typical steps of a machine learning project like data gathering, data preparation & analysis and developing meaning out of it.
 Q. For whom is this for?
 A. Anybody who wants to explore the exciting world of data science.
 Q. What are the prerequisites?
