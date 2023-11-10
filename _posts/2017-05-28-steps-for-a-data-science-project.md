@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  What is Data Science?
+title:  Steps for a Data Science project
 date:   2017-05-27 16:40:16
-description: What is Data Science and how it is different from Machine Learning?
-tags: data-science-vs-machine-learning
+description: What are the steps for a Data Science project?
+tags: data-science-project-steps
 categories: data-science machine-learning
 ---
 
@@ -37,6 +37,6 @@ Deployment:
 
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/blog-2.png" title="data science ven diagram" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blog-3.png" title="steps for a data science project" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
