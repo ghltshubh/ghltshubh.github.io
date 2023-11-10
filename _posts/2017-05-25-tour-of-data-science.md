@@ -2,13 +2,13 @@
 layout: post
 title:  Hello world!
 date:   2017-05-25 16:40:16
-description: A tour of data science using Python
+description: A tour of machine learning using Python
 tags: first-blog
 categories: data-science machine-learning
 ---
 
 Q. What is it?
-A. A tour of Data Science using python. It will make familiar with the typical steps of a data science project like data gathering, data preparation & analysis and developing meaning out of it.
+A. A tour of machine learning using python. It will make familiar with the typical steps of a data science project like data gathering, data preparation & analysis and developing meaning out of it.
 Q. For whom is this for?
 A. Anybody who wants to explore the exciting world of data science.
 Q. What are the prerequisites?
@@ -27,7 +27,7 @@ A. The topics covered are:
     9. Big Data
     10. Data Science in Production
 
-Q. What are the projects covered?
+<!-- Q. What are the projects covered?
 A. The projects covered are:
 
     1. Titanic Survival Prediction
@@ -39,5 +39,4 @@ A. The projects covered are:
     7. Customer Segmentation
     8. Fraud Detection
     9. Stock Price Prediction
-    10. Time Series Analysis
-    
+    10. Time Series Analysis -->
