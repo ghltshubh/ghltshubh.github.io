@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Hello world!
-date:   2017-05-25 16:40:16
+date:   2017-05-27 16:40:16
 description: What is Machine Learning and how it is different from Data Science?
 tags: data-science-vs-machine-learning
 categories: data-science machine-learning
