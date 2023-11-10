@@ -3,7 +3,7 @@ layout: post
 title:  Hello world!
 date:   2017-05-25 16:40:16
 description: A tour of data science using Python
-tags: formatting links
+tags: first-blog
 categories: data-science machine-learning
 ---
 
@@ -40,3 +40,4 @@ A. The projects covered are:
     8. Fraud Detection
     9. Stock Price Prediction
     10. Time Series Analysis
+    
