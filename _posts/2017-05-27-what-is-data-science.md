@@ -10,7 +10,7 @@ Machine learning is a subfield of computer science that evolved from the study o
 
 Data Science isn’t fundamentally a new field. We’ve long had statisticians, analysts and programmers. What’s new is the way it combines several different fields into one. These fields are mathematics primarily statistics and linear algebra, computing skills like programming and domain knowledge along with communication skills.
 Data science is about predictions and associations but not causality.
-[Data Science Venn Diagram](assets/img/blog-2.png)
+![Data Science Venn Diagram](assets/img/blog-2.png)
 
 So, we can easily say that data science and machine learning have a huge overlap and one can be used in place of the other. But, there are some differences between the two. Data science is a broader term which includes machine learning. Machine learning is a part of data science which deals with algorithms, statistics and structures of data to extract useful information from the data whereas data science is a multidisciplinary field which uses machine learning to extract knowledge and insights from the data.
 
