@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Steps for a Data Science project
-date:   2017-05-27 16:40:16
+date:   2017-05-28 16:40:16
 description: What are the steps for a Data Science project?
 tags: data-science-project-steps
 categories: data-science machine-learning
