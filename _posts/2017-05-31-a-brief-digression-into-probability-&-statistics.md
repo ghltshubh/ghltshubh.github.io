@@ -10,6 +10,12 @@ categories: data-science machine-learning
 We measure the sample using statistics in order to draw inferences about the population and its parameters.
 Samples are collected through random selection from a population. This process is called **sampling**.
 
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
 **Types of statistics:**
 
 1. Descriptive: Number that describes or gives a gist of the population data under consideration.
@@ -73,3 +79,12 @@ Q2(50% of data) = 11
 Q3(75% of data) = (11 + 16.5 + 16.5 + 19)/4 = 15.75
 
 IQR = Q3 – Q1 = 15.75 – 6 = 9.75
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+*Questioning the underlying reason for distributional non-unimodality frequently leads to greater insight and improved deterministic modeling of the phenomenon under study.*
+
