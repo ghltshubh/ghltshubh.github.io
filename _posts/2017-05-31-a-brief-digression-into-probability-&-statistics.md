@@ -65,7 +65,11 @@ Range is a quick way to get an idea of the spread.
 IQR takes longer to compute but it sometimes gives more useful insights like outliers or bad data points etc.
 
 Interquartile Range: IQR is amount of spread in the middle 50% of the data set. In the previous e.g.
+
 Q1(25% of data) = (2 + 4 + 7 + 11)/4 = 6
+
 Q2(50% of data) = 11
+
 Q3(75% of data) = (11 + 16.5 + 16.5 + 19)/4 = 15.75
+
 IQR = Q3 – Q1 = 15.75 – 6 = 9.75
