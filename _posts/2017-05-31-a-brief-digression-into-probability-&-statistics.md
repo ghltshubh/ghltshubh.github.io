@@ -47,7 +47,7 @@ Median is preferred when the data is skewed or subject to outliers.
 
 Measuring spread of data:
 Range: Maximum value – Minimum value = 19 – 2 = 17
-Variance $$({s_(n-1)}^2) = \sum_({x_i}–\bar_{x})^2 / (n-1)$$
+Variance: $${s_(n-1)}^2 = \sum_({x_i}–\bar_{x})^2 / (n-1)$$
 Standard Deviation $$({s_(n-1)}) = \sqrt{Variance}$$
 Range is a quick way to get an idea of the spread. IQR takes longer to compute but it sometimes gives more useful insights like outliers or bad data points etc.
 
