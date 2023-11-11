@@ -42,7 +42,7 @@ $$x_i$$ = 2, 4, 7, 11, 16.5, 16.5, 19
 
 $$n$$ = 7
 
-Mean $$\bar{x}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
+Mean $$\bar{x} = \frac{\sum_{i=1}^n \bar{x_i}}{n}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
 
 Median = 11
 
@@ -56,7 +56,7 @@ Measuring spread of data:
 
 Range: Maximum value – Minimum value = 19 – 2 = 17
 
-Variance: $$s_{n-1}^2 = \frac{\sum_({x_i} – \bar_{x})^2}{n-1}$$
+Variance: $$s_{n-1}^2 = \frac{\sum_({x_i} – \bar{x})^2}{n-1}$$
 
 Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
 
