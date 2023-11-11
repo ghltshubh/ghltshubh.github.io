@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Hello world!
-date:   2017-05-25 16:40:16
+date:   2017-05-31 16:40:16
 description: A tour of Data Science using Python
 tags: first-blog
 categories: data-science machine-learning
