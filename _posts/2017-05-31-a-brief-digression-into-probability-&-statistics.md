@@ -42,18 +42,27 @@ $$x_i$$ = 2, 4, 7, 11, 16.5, 16.5, 19
 
 $$n$$ = 7
 
-Mean $$\bar{x} = \frac{\sum_{i=1}^n \bar_{x_i}}{n}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
+Mean $$\bar_{x} = \frac{\sum_{i=1}^n \bar_{x_i}}{n}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
+
 Median = 11
+
 Mode = 16.5
 
 Median is preferred when the data is skewed or subject to outliers.
+
 **WARNING:** A median value significantly larger than the mean value should be investigated!
 
 Measuring spread of data:
+
 Range: Maximum value – Minimum value = 19 – 2 = 17
-Variance: $${s_{n-1}}^2 = \frac{\sum_({x_i}–\bar_{x})^2} {(n-1)}$$
-Standard Deviation $$({s_{n-1}}) = \sqrt{Variance}$$
-Range is a quick way to get an idea of the spread. IQR takes longer to compute but it sometimes gives more useful insights like outliers or bad data points etc.
+
+Variance: $$s_{n-1}^2 = \frac{\sum_({x_i} – \bar_{x})^2}{n-1}$$
+
+Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
+
+Range is a quick way to get an idea of the spread.
+
+IQR takes longer to compute but it sometimes gives more useful insights like outliers or bad data points etc.
 
 Interquartile Range: IQR is amount of spread in the middle 50% of the data set. In the previous e.g.
 Q1(25% of data) = (2 + 4 + 7 + 11)/4 = 6
