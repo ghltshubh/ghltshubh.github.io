@@ -62,7 +62,7 @@ Measuring spread of data:
 
 Range: Maximum value – Minimum value = 19 – 2 = 17
 
-Variance: $$s_{n-1}^2 = \frac{\sum_\left({x_i} – \bar{x}\right)^2}{n-1}$$
+Variance: $$s_{n-1}^2 = \frac{\sigma_(\left({x_i} – \bar{x}\right))^2}{n-1}$$
 
 Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
 
@@ -88,3 +88,63 @@ IQR = Q3 – Q1 = 15.75 – 6 = 9.75
 
 *Questioning the underlying reason for distributional non-unimodality frequently leads to greater insight and improved deterministic modeling of the phenomenon under study.*
 
+- Very common in real-world data.
+- Best practice is to look into this.
+
+**Plotting Data**
+
+- Bar chart: It is made up of columns plotted on a graph and used for categorical variable.
+- Frequency histogram(Histogram): It is made up of columns plotted on a graph and used for quantitative variable. Usually obtained by splitting the range of a continuous variable into equal sized bins(classes).
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+*Both display relative frequencies of different variables. With bar charts, the labels on the X axis are categorical; with histograms, the labels are quantitative. Both are useful in detecting outliers(odd data points).*
+
+- Boxplots: The boxplot (a.k.a. box and whisker diagram) is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. In the simplest boxplot the central rectangle spans the first quartile to the third quartile (the interquartile range or IQR). A segment inside the rectangle shows the median and “whiskers” above and below the box show the locations of the minimum and maximum. The extreme values (within 1.5 times the interquartile range from the upper or lower quartile) are the ends of the lines extending from the IQR. Points at a greater distance from the median than 1.5 times the IQR are plotted individually as asterisks. These points represent potential outliers.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+**Shape**
+
+- Skewness: Measure of degree of asymmetry of a variable.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-5.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+- Skewness = $$\frac{\sum_{i=1}^n (x_i – \bar{x})^3}{(n-1)s^3}$$
+
+    - Value of 0 indicates a perfectly symmetric variable.
+    - Positive skewness: The majority of observations are to the left of the mean.
+    - Negative skewness: The majority of observations are to the right of the mean.
+
+- Kurtosis: A measure of how “tailed” a variable is.
+    - Variables with a pronounced peak near the mean have high kurtosis.
+    - Variables with a flat peak have a low kurtosis.
+
+- Kurtosis = $$\frac{\sum_{i=1}^n (x_i – \bar{x})^4}{(n-1)s^4}$$
+
+- Values for skewness and kurtosis near zero indicate the variable approximates a normal distribution.
+
+**Sample Statistic and Population Parameter**
+
+Each sample statistic has a corresponding unknown population value called a parameter. e.g. population mean, variance etc. are called parameter whereas sample mean, variance etc. are called statistic.
+
++--------------------+-------------------+--------------------+
+|                    | Sample Statistic  | Population Parameter|
++--------------------+-------------------+--------------------+
+| Mean               | $$\bar{x}=\$$       | $$\mu$$            |
+| Variance           | $$s^2$$           | $$\sigma^2$$       |
+| Standard Deviation | $$s$$             | $$\sigma$$         |
+| Proportion         | $$\hat{p}$$       | $$p$$              |
++--------------------+-------------------+--------------------+
