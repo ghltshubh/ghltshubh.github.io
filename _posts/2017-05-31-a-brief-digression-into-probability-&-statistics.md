@@ -62,7 +62,7 @@ Measuring spread of data:
 
 Range: Maximum value – Minimum value = 19 – 2 = 17
 
-Variance: $$s_{n-1}^2 = \frac{\sum_(\left({x_i} – \bar{x}\right))^2}{n-1}$$
+Variance: $$s_{n-1}^2 = \frac{\sum_\left({x_i} – \bar{x}\right)^2}{n-1}$$
 
 Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
 
@@ -160,4 +160,11 @@ Conditional Probability: The probability of an event occurring given that anothe
 Conditional Probability of an event = $$P\left(A\barB\right) = \frac{P\left(A\capB\right)}{P\left(B\right)} \implies A is dependent on B$$
 
 Bayes Theorem: $$P\left(A\barB\right) = \frac{P\left(B\barA\right)P\left(A\right)}{P\left(B\right)}$$
+
+**Probability Distribution:** 
+
+A mathematical function that, stated in simple terms, can be thought of as providing the probability of occurrence of different possible outcomes in an experiment.
+Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 times.
+
+
 
