@@ -156,9 +156,9 @@ Probability of an event = $$\frac{\text{# of favourable outcomes}}{\text{Total #
 
 Conditional Probability: The probability of an event occurring given that another event has occurred.
 
-Conditional Probability of an event $$P\left(A\vbar{B}\right) = \frac{P\left(A\cap{B}\right)}{P\left(B\right)} \implies$$ A is dependent on B
+Conditional Probability of an event $$P\left(A\vert{B}\right) = \frac{P\left(A\cap{B}\right)}{P\left(B\right)} \implies$$ A is dependent on B
 
-Bayes Theorem: $$P\left(A\vbar{B}\right) = \frac{P\left(B\vbar{A}\right)P\left(A\right)}{P\left(B\right)}$$
+Bayes Theorem: $$P\left(A\vert{B}\right) = \frac{P\left(B\vert{A}\right)P\left(A\right)}{P\left(B\right)}$$
 
 **Probability Distribution:** 
 
@@ -172,6 +172,6 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 </div>
 
 
-$$P(X=0) = \frac{\left 5\choose_0\right}{32} = \frac{1}{32}, P\left X = 1 \right = \frac{\left 5\choose_1 \right}{32} = \frac{5}{32}$$
-$$P(X=2) = \frac{\left 5\choose_2\right}{32} = \frac{10}{32}, P\left X = 3 \right = \frac{\left 5\choose_3 \right}{32} = \frac{10}{32}$$
+$$P\left(X=0\right) = \frac{\left(5\choose_0\right)}{32} = \frac{1}{32}, P\left( X = 1 \right) = \frac{\left( 5\choose_1 \right)}{32} = \frac{5}{32}$$
+$$P(X=2) = \frac{\left( 5\choose_2\right)}{32} = \frac{10}{32}, P\left( X = 3 \right) = \frac{\left 5\choose_3 \right}{32} = \frac{10}{32}$$
 $$P(X=4) = \frac{\left 5\choose_4\right}{32} = \frac{5}{32}, P\left X = 5 \right = \frac{\left 5\choose_5\right}{32} = \frac{1}{32}$$
