@@ -220,8 +220,8 @@ To plot a sampling distribution of sample means(can be mode, median etc.) we dra
 **Standard Error**
 
 Variance of the sampling distribution of the sample mean. The standard error of the mean is the expected value(average) of the standard deviation of several samples, this is estimated from a single sample as:
-$$SE_{\bar_{x}}^2 = s^2 \over n \implies larger the sample size lower the variance.
-$$s$$ is standard deviation of the sample, $$n$$ is the sample size.
+$$SE_{\bar_{x}}^2 = s^2 \over n \implies$$ larger the sample size lower the variance.
+$s$ is standard deviation of the sample, $n$ is the sample size.
 
 
 <div class="row justify-content-sm-center">
