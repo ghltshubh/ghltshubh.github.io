@@ -156,9 +156,9 @@ Probability of an event = $$\frac{\text{# of favourable outcomes}}{\text{Total #
 
 Conditional Probability: The probability of an event occurring given that another event has occurred.
 
-Conditional Probability of an event = $$P\left(A|{B}\right) = \frac{P\left(A\cap{B}\right)}{P\left(B\right)} \implies$$ A is dependent on B
+Conditional Probability of an event $$P\left(A\vbar{B}\right) = \frac{P\left(A\cap{B}\right)}{P\left(B\right)} \implies$$ A is dependent on B
 
-Bayes Theorem: $$P\left(A|{B}\right) = \frac{P\left(B|{A}\right)P\left(A\right)}{P\left(B\right)}$$
+Bayes Theorem: $$P\left(A\vbar{B}\right) = \frac{P\left(B\vbar{A}\right)P\left(A\right)}{P\left(B\right)}$$
 
 **Probability Distribution:** 
 
