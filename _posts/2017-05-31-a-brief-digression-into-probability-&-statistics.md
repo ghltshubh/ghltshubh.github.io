@@ -221,4 +221,26 @@ To plot a sampling distribution of sample means(can be mode, median etc.) we dra
 
 Variance of the sampling distribution of the sample mean. The standard error of the mean is the expected value(average) of the standard deviation of several samples, this is estimated from a single sample as:
 $$SE_{\bar_{x}}^2 = s^2 \over n \implies larger the sample size lower the variance.
-$s$ is standard deviation of the sample, $n$ is the sample size.
+$$s$$ is standard deviation of the sample, $$n$$ is the sample size.
+
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-9.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+**WARNING:** $$SE_{\bar_{x}}$$ = sampling distribution standard deviation (not sample standard deviation).
+
+**Confidence Interval**
+
+- Each sample statistic has a corresponding unknown population value called parameter.
+- How well these sample statistic estimate the underlying population value?
+- Confidence interval is the range which is likely to contain the population parameter of interest.
+- Confidence intervals can be 1 sided or 2 sided. We choose the type of confidence interval based on the type of test we want to perform.
+- Confidence interval(2-sided, let’s say has 95% confidence level) can be interpreted as if the same population is sampled on numerous occasions, the resulting intervals would contain the true population parameter 95% of the time.
+- We can only guess the range that our estimated parameter falls in and not about its exact value.
+- **3** $$\sigma$$ or **68-95-99.7 rule:** The 68–95–99.7 rule is a shorthand used to remember the percentage of values that lie within a band around the mean in a normal distribution with a width of two, four and six standard deviations, respectively. In mathematical notation, these facts can be expressed as follows, where $$X$$ is an observation from a normally distributed random variable, $$\sigma$$ is the mean of the distribution, and $$\sigma$$ is its standard deviation:
+𝑃(𝜇−𝜎≤𝑋≤𝜇+𝜎)≈0.6827
+𝑃(𝜇−2𝜎≤𝑋≤𝜇+2𝜎)≈0.9545
+𝑃(𝜇−3𝜎≤𝑋≤𝜇+3𝜎)≈0.9973
