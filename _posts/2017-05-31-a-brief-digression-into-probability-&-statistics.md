@@ -142,7 +142,7 @@ Each sample statistic has a corresponding unknown population value called a para
 
 |                    | **Sample Statistic**  | **Population Parameter** |
 |:------------------:|:------------------:|:------------------:|
-| **Mean**               | $$\bar{x}=\frac{\sum_{i=1}{n} {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}{N} x_i}{N}$$ |
+| **Mean**               | $$\bar{x}=\frac{\sum_{i=1}^n {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}^N x_i}{N}$$ |
 | **Variance**           | $$s_{n-1}^2=\frac{\sum({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\frac{\sum({x_i-\mu})^2}{N}$$  |
 | **Standard Deviation** | $$s$$ or $$s_{n-1}$$  | $$\sigma$$         |
 
@@ -172,8 +172,8 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 </div>
 
 
-[latex]P\left[X=0\right](/latex) = [latex]\frac{{5}\choose{0}}{32}[/latex] = [latex]{\frac{1}{32}}[/latex],  [latex]P\left[X=1\right](/latex) = [latex]\frac{{5}\choose{1}}{32}[/latex] = [latex]{\frac{5}{32}}[/latex]
+$$P\left[X=0\right] = \frac{{5}\choose{0}}{32} = {\frac{1}{32}},  P\left[X=1\right] = \frac{{5}\choose{1}}{32} = {\frac{5}{32}}$$
 
-[latex]P\left[X=2\right](/latex) = [latex]\frac{5\choose2}{32}[/latex] = [latex]{\frac{10}{32}}[/latex],  [latex]P\left[X=3\right](/latex) = [latex]\frac{{5}\choose{3}}{32}[/latex] = [latex]{\frac{10}{32}}[/latex]
+$$P\left[X=2\right] = \frac{5\choose2}{32} = {\frac{10}{32}},  P\left[X=3\right] = \frac{{5}\choose{3}}{32} = {\frac{10}{32}}$$
 
-[latex]P\left[X=4\right](/latex) = [latex]\frac{{5}\choose{4}}{32}[/latex] = [latex]{\frac{5}{32}}[/latex],  [latex]P\left[X=5\right](/latex) = [latex]\frac{{5}\choose{5}}{32}[/latex] = [latex]{\frac{1}{32}}[/latex]
+$$P\left[X=4\right] = \frac{{5}\choose{4}}{32} = {\frac{5}{32}},  P\left[X=5\right] = \frac{{5}\choose{5}}{32} = {\frac{1}{32}}$$
