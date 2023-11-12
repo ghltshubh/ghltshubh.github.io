@@ -172,6 +172,6 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 </div>
 
 
-$$P(X=0) = \frac{\left(5\choose_0\right)}{32} = \frac{1}{32}, P\left(X = 1 \right) = \frac{\left(5\choose1\right)}{32} = \frac{5}{32}$$
-$$P(X=2) = \frac{\left(5\choose_2\right)}{32} = \frac{10}{32}, P\left(X = 3 \right) = \frac{\left(5\choose3\right)}{32} = \frac{10}{32}$$
-$$P(X=4) = \frac{\left(5\choose_4\right)}{32} = \frac{5}{32}, P\left(X = 5 \right) = \frac{\left(5\choose5\right)}{32} = \frac{1}{32}$$
+$$P(X=0) = \frac{\left 5\choose_0\right}{32} = \frac{1}{32}, P\left X = 1 \right = \frac{\left 5\choose_1 \right}{32} = \frac{5}{32}$$
+$$P(X=2) = \frac{\left 5\choose_2\right}{32} = \frac{10}{32}, P\left X = 3 \right = \frac{\left 5\choose_3 \right}{32} = \frac{10}{32}$$
+$$P(X=4) = \frac{\left 5\choose_4\right}{32} = \frac{5}{32}, P\left X = 5 \right = \frac{\left 5\choose_5\right}{32} = \frac{1}{32}$$
