@@ -191,7 +191,34 @@ $$P(X = 5) = \frac{\binom{5}{5}}{32} = \frac{1}{32}$$
 
 
 **Central Limit Theorem**
+
 Suppose that a sample is obtained containing a large number of observations, each observation being randomly generated in a way that does not depend on the values of other observations and arithmetic average of the observations is computed. If this procedure of random sampling and computing the average of observations is performed many times, the central limit theorem says that the computed values of the average will be distributed according to the normal distribution (commonly known as a “bell curve”). A simple example of this is that if one flips a coin many times the probability of getting a given number of heads in a series of flips should follow a normal curve, with mean equal to half the total number of flips in each series as shown previously.
 
 **Sampling distribution of the sample mean**
+
 Random variables can have different distribution patterns. They can be normal or multi-modal as shown below.
+
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-7.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+To plot a sampling distribution of sample means(can be mode, median etc.) we draw samples of certain size(say 3) from a distribution and compute its mean.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-8.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+
+**Note:** The mean of sampling distribution(mean of means) is same as the population mean $$(\mu_{x} = \mu)$$. As the number of samples $$(S_{i})$$ approach infinity the curve approximates a normal distribution.
+
+
+**Standard Error**
+
+Variance of the sampling distribution of the sample mean. The standard error of the mean is the expected value(average) of the standard deviation of several samples, this is estimated from a single sample as:
+$$SE_{\bar_{x}}^2 = s^2 \over n \implies larger the sample size lower the variance.
+$s$ is standard deviation of the sample, $n$ is the sample size.
