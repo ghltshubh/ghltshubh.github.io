@@ -221,7 +221,7 @@ To plot a sampling distribution of sample means(can be mode, median etc.) we dra
 
 Variance of the sampling distribution of the sample mean. The standard error of the mean is the expected value(average) of the standard deviation of several samples, this is estimated from a single sample as:
 
-$$SE_{\bar{x}}^2 = {s^2}\over{n} \implies$$ larger the sample size lower the variance.
+$$SE_{\bar{x}}^2$$ $$=$$ $${s^2}\over{n}$$ $$\implies$$ larger the sample size lower the variance.
 $$s$$ is standard deviation of the sample, $$n$$ is the sample size.
 
 
@@ -250,3 +250,17 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 𝑃(𝜇 − 2𝜎 ≤ 𝑋 ≤ 𝜇 + 2𝜎) ≈ 0.9545
 
 𝑃(𝜇 − 3𝜎 ≤ 𝑋 ≤ 𝜇 + 3𝜎) ≈ 0.9973
+
+- **Significance level or 𝛼 level:** The alpha level is the probability/ percentage of values that lie outside the confidence interval.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-10.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+- **Confidence level or 1-𝛼 level:** The confidence level is the probability/ percentage of values that lie inside the confidence interval.
+
+**NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎) 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
+
+
