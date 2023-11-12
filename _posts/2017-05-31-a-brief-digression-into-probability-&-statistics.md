@@ -172,6 +172,6 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 </div>
 
 
-$$P(X=0) = \frac{ 5\choose_0 }{32} = \frac{1}{32}, P(X = 1) = \frac{5\choose_1}{32} = \frac{5}{32}$$
-$$P(X=2) = \frac{5\choose_2}{32} = \frac{10}{32}, P(X = 3) = \frac{5\choose_3}{32} = \frac{10}{32}$$
-$$P(X=4) = \frac{5\choose_4}{32} = \frac{5}{32}, P(X = 5) = \frac{5\choose_5}{32} = \frac{1}{32}$$
+$$P(X=0) = \frac{{5}\choose{0} }{32} = \frac{1}{32}, P(X = 1) = \frac{{5}\choose{1}}{32} = \frac{5}{32}$$
+$$P(X=2) = \frac{{5}\choose{2}}{32} = \frac{10}{32}, P(X = 3) = \frac{{5}\choose{3}}{32} = \frac{10}{32}$$
+$$P(X=4) = \frac{{5}\choose{4}}{32} = \frac{5}{32}, P(X = 5) = \frac{{5}\choose{5}}{32} = \frac{1}{32}$$
