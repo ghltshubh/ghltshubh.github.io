@@ -165,8 +165,6 @@ Bayes Theorem: $$P\left(A\bar{B}\right) = \frac{P\left(B\bar{A}\right)P\left(A\r
 A mathematical function that, stated in simple terms, can be thought of as providing the probability of occurrence of different possible outcomes in an experiment.
 Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 times.
 
-
-
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/blog-5-6.png" title="" class="img-fluid rounded z-depth-1" %}
