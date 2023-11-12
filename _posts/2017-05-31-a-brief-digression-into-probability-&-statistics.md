@@ -172,8 +172,13 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 </div>
 
 
-$$P(X=0) = \frac{{5}\choose{0} }{32} = \frac{1}{32}, P(X = 1) = \frac{{5}\choose{1}}{32} = \frac{5}{32}$$
+$$P(X=0) = \frac{5 \choose 0 }{32} = \frac{1}{32}, P(X = 1) = \frac{5 \choose 1}{32} = \frac{5}{32}$$
+$$P(X=2) = \frac{5 \choose 2}{32} = \frac{10}{32}, P(X = 3) = \frac{5 \choose 3}{32} = \frac{10}{32}$$
+$$P(X=4) = \frac{5 \choose 4}{32} = \frac{5}{32}, P(X = 5) = \frac{5 \choose 5}{32} = \frac{1}{32}$$
 
-$$P(X=2) = \frac{{5}\choose{2}}{32} = \frac{10}{32}, P(X = 3) = \frac{{5}\choose{3}}{32} = \frac{10}{32}$$
 
-$$P(X=4) = \frac{{5}\choose{4}}{32} = \frac{5}{32}, P(X = 5) = \frac{{5}\choose{5}}{32} = \frac{1}{32}$$
+**Central Limit Theorem**
+Suppose that a sample is obtained containing a large number of observations, each observation being randomly generated in a way that does not depend on the values of other observations and arithmetic average of the observations is computed. If this procedure of random sampling and computing the average of observations is performed many times, the central limit theorem says that the computed values of the average will be distributed according to the normal distribution (commonly known as a “bell curve”). A simple example of this is that if one flips a coin many times the probability of getting a given number of heads in a series of flips should follow a normal curve, with mean equal to half the total number of flips in each series as shown previously.
+
+**Sampling distribution of the sample mean**
+Random variables can have different distribution patterns. They can be normal or multi-modal as shown below.
