@@ -140,26 +140,26 @@ IQR = Q3 – Q1 = 15.75 – 6 = 9.75
 
 Each sample statistic has a corresponding unknown population value called a parameter. e.g. population mean, variance etc. are called parameter whereas sample mean, variance etc. are called statistic.
 
-+--------------------+-----------------------------------+--------------------+
+
 |                    | Sample Statistic  | Population Parameter|
-+--------------------+-----------------------------------+--------------------+
-| Mean               | $$\bar{x}=\frac{\sum_{i=1}{n} {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}{N} x_i}{N}$$            |
+|--------------------|-------------------|---------------------|
+| Mean               | $$\bar{x}=\frac{\sum_{i=1}{n} {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}{N} x_i}{N}$$ |
 | Variance           | $$s_{n-1}^2=\frac{\sum({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\frac{\sum({x_i-\mu})^2}{N}$$  |
 | Standard Deviation | $$s or s_{n-1}$$  | $$\sigma$$         |
-+--------------------+-------------------+--------------------+
+
 *There are many more sample statistics and their corresponding population parameters.*
 
 **Probability**
 
 Probability: The likelihood of an event occurring.
 
-Probability of an event = $$\frac{\text{Number of ways the event can occur}}{\text{Total number of possible outcomes}}$$
+Probability of an event = $$\frac{\text{# of favourable outcomes}}{\text{Total # of possible outcomes}}$$
 
 Conditional Probability: The probability of an event occurring given that another event has occurred.
 
-Conditional Probability of an event = $$P\left(A\barB\right) = \frac{P\left(A\capB\right)}{P\left(B\right)} \implies A is dependent on B$$
+Conditional Probability of an event = $$P\left(A\bar{B}\right) = \frac{P\left(A\cap{B}\right)}{P\left(B\right)} \implies$$ A is dependent on B
 
-Bayes Theorem: $$P\left(A\barB\right) = \frac{P\left(B\barA\right)P\left(A\right)}{P\left(B\right)}$$
+Bayes Theorem: $$P\left(A\bar{B}\right) = \frac{P\left(B\bar{A}\right)P\left(A\right)}{P\left(B\right)}$$
 
 **Probability Distribution:** 
 
@@ -168,3 +168,8 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
 
 
 
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-6.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
