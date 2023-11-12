@@ -144,7 +144,7 @@ Each sample statistic has a corresponding unknown population value called a para
 |--------------------|-------------------|---------------------|
 | **Mean**               | $$\bar{x}=\frac{\sum_{i=1}{n} {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}{N} x_i}{N}$$ |
 | **Variance**           | $$s_{n-1}^2=\frac{\sum({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\frac{\sum({x_i-\mu})^2}{N}$$  |
-| **Standard Deviation** | $$s or s_{n-1}$$  | $$\sigma$$         |
+| **Standard Deviation** | $$s$$ or $$s_{n-1}$$  | $$\sigma$$         |
 
 *There are many more sample statistics and their corresponding population parameters.*
 
