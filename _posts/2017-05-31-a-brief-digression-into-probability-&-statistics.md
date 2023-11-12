@@ -172,3 +172,10 @@ Let’s say we have a random variable 𝑋 = # of HEADS from flipping a coin 5 t
         {% include figure.html path="assets/img/blog-5-6.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+
+
+[latex]P\left[X=0\right](/latex) = [latex]\frac{{5}\choose{0}}{32}[/latex] = [latex]{\frac{1}{32}}[/latex],  [latex]P\left[X=1\right](/latex) = [latex]\frac{{5}\choose{1}}{32}[/latex] = [latex]{\frac{5}{32}}[/latex]
+
+[latex]P\left[X=2\right](/latex) = [latex]\frac{5\choose2}{32}[/latex] = [latex]{\frac{10}{32}}[/latex],  [latex]P\left[X=3\right](/latex) = [latex]\frac{{5}\choose{3}}{32}[/latex] = [latex]{\frac{10}{32}}[/latex]
+
+[latex]P\left[X=4\right](/latex) = [latex]\frac{{5}\choose{4}}{32}[/latex] = [latex]{\frac{5}{32}}[/latex],  [latex]P\left[X=5\right](/latex) = [latex]\frac{{5}\choose{5}}{32}[/latex] = [latex]{\frac{1}{32}}[/latex]
