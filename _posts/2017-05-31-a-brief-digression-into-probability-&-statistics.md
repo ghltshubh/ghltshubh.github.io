@@ -144,7 +144,20 @@ Each sample statistic has a corresponding unknown population value called a para
 |                    | Sample Statistic  | Population Parameter|
 +--------------------+-----------------------------------+--------------------+
 | Mean               | $$\bar{x}=\frac{\sum_{i=1}{n} {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}{N} x_i}{N}$$            |
-| Variance           | $$s_{n-1}^2=\frac{\sigma}{}$$           | $$\sigma^2$$       |
-| Standard Deviation | $$s$$             | $$\sigma$$         |
-| Proportion         | $$\hat{p}$$       | $$p$$              |
+| Variance           | $$s_{n-1}^2=\frac{\sum({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\frac{\sum({x_i-\mu})^2}{N}$$  |
+| Standard Deviation | $$s or s_{n-1}$$  | $$\sigma$$         |
 +--------------------+-------------------+--------------------+
+*There are many more sample statistics and their corresponding population parameters.*
+
+**Probability**
+
+Probability: The likelihood of an event occurring.
+
+Probability of an event = $$\frac{\text{Number of ways the event can occur}}{\text{Total number of possible outcomes}}$$
+
+Conditional Probability: The probability of an event occurring given that another event has occurred.
+
+Conditional Probability of an event = $$P\left(A\barB\right) = \frac{P\left(A\capB\right)}{P\left(B\right)} \implies A is dependent on B$$
+
+Bayes Theorem: $$P\left(A\barB\right) = \frac{P\left(B\barA\right)P\left(A\right)}{P\left(B\right)}$$
+
