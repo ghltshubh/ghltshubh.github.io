@@ -267,8 +267,8 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 **How to compute a confidence interval** (when population std. deviation is known and sample size is larger than ~30)
 Compute the standard error of the sampling distribution $${\sigma}\over{\sqrt{n}}$$.
 Choose the desired confidence level and its corresponding significance level or alpha value.
-Determine the value of $$z_{{\alpha}\over{2}}$$ (for two sided confidence interval) also called the 𝑧-score.
-Compute the confidence interval $$\bar{x}\pmz_{{\alpha}\over{2}}{\sigma}\over{{\sqrt$$
+Determine the value of $$z_{\alpha \over {2}}$$ (for two sided confidence interval) also called the 𝑧-score.
+Compute the confidence interval $$\bar{x}\pmz_{\alpha\over{2}}{\sigma}\over{{\sqrt$$
 
 - **Significance level or 𝛼 level:** The alpha level is the probability/ percentage of values that lie outside the confidence interval.
 
