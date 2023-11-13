@@ -62,7 +62,7 @@ Measuring spread of data:
 
 Range: Maximum value – Minimum value = 19 – 2 = 17
 
-Variance: $$s_{n-1}^2 = \sum_\frac{\left({x_i} – \bar{x}\right)^2}{n-1}$$
+Variance: $$s_{n-1}^2 = \sum_{i=1}^n\frac{\left({x_i} – \bar{x}\right)^2}{n-1}$$
 
 Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
 
@@ -142,8 +142,8 @@ Each sample statistic has a corresponding unknown population value called a para
 
 |                    | **Sample Statistic**  | **Population Parameter** |
 |:------------------:|:------------------:|:------------------:|
-| **Mean**               | $$\bar{x}=\frac{\sum_{i=1}^n {x_i}}{n}$$ | $$\mu=\frac{\sum_{i=1}^N x_i}{N}$$ |
-| **Variance**           | $$s_{n-1}^2=\frac{\sum({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\frac{\sum({x_i-\mu})^2}{N}$$  |
+| **Mean**               | $$\bar{x}=\sum_{i=1}^n\frac{{x_i}}{n}$$ | $$\mu=\sum_{i=1}^N\frac{x_i}{N}$$ |
+| **Variance**           | $$s_{n-1}^2=\sum_{i=1}^n\frac{({x_i-\bar{x}})^2}{n-1}$$ | $$\sigma^2=\sum_{i=1}^n\frac{({x_i-\mu})^2}{N}$$  |
 | **Standard Deviation** | $$s$$ or $$s_{n-1}$$  | $$\sigma$$         |
 
 *There are many more sample statistics and their corresponding population parameters.*
