@@ -267,7 +267,7 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 Compute the standard error of the sampling distribution $${\sigma}\over{\sqrt{n}}$$.
 Choose the desired confidence level and its corresponding significance level or alpha value.
 Determine the value of $$z_{\alpha \over {2}}$$ (for two sided confidence interval) also called the 𝑧-score.
-Compute the confidence interval $$\bar{x} {\pm} {z_{\alpha\over{2}}}{\sigma}\over{\sqrt{n}}$$
+Compute the confidence interval $$\bar{x} {\pm} {z_{\alpha\over{2}}}\frac{\sigma}{\sqrt{n}}$$
 
 NOTE:
 𝑧-score or 𝑠𝑡𝑎𝑛𝑑𝑎𝑟𝑑-score = (𝑥−𝜇)/𝜎 ⇒ Number of standard deviations away 𝑥 is from its mean.
