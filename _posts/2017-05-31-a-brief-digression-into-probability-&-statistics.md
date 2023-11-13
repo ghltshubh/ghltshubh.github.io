@@ -334,4 +334,4 @@ Let’s assume that 𝛼 = 0.05 or 5%
 - If the test statistic ($$\bar{x}$$) falls within the confidence interval, the null hypothesis is rejected else it is accepted in favor of the alternative hypothesis.
 
 **NOTE:** Since the sample size is small and the population std. deviation is unknown we can’t use normal distribution z-score to compute the confidence interval. Instead we will use t-distribution t-score discussed further to compute confidence interval. The statistic may be different but the approach to compute confidence interval is still the same.
-For details on confidence interval and how to compute it: Confidence interval.
+For details on confidence interval and how to compute it: [Confidence interval](http://www.statisticshowto.com/how-to-find-a-confidence-interval/).
