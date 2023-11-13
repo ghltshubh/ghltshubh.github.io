@@ -323,7 +323,7 @@ We will discuss these test statistics in detail as we go along.
 **NOTE:** “failing to reject the null hypothesis” is **NOT** the same as “accepting the null hypothesis”. It simply means that the data are not sufficiently persuasive for us to prefer the alternative hypothesis over the null hypothesis. Always take the conclusions with a grain of salt.
 
 **Problem**
-Assume we sample 10 (n=10) widgets and measure their thickness. The mean thickness of the widgets sampled is 7.55 units (𝑥¯=7.55) with a standard deviation of 0.1027 (s=0.1027). But we want to have widgets that are 7.5 units thick. Compute the confidence interval for the mean for a given level of Type I error (significance or alpha level or probability of incorrectly rejecting the null hypothesis).
+Assume we sample 10 (n=10) widgets and measure their thickness. The mean thickness of the widgets sampled is 7.55 units ($$\bar{x}$$=7.55) with a standard deviation of 0.1027 (s=0.1027). But we want to have widgets that are 7.5 units thick. Compute the confidence interval for the mean for a given level of Type I error (significance or alpha level or probability of incorrectly rejecting the null hypothesis).
 
 **Solution**
 Let’s assume that 𝛼 = 0.05 or 5%
