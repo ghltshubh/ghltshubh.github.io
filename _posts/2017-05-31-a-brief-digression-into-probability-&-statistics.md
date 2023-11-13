@@ -3,7 +3,7 @@ layout: post
 title:  A brief digression into Probability & Statistics
 date:   2017-05-31 16:40:16
 description: A tour of Data Science using Python
-tags: first-blog
+tags: statistics
 categories: data-science machine-learning
 ---
 

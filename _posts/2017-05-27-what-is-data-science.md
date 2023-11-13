@@ -3,7 +3,7 @@ layout: post
 title:  What is Data Science?
 date:   2017-05-27 16:40:16
 description: What is Data Science and how it is different from Machine Learning?
-tags: data-science-vs-machine-learning
+tags: data-science-vs-machine-learning statistics
 categories: data-science machine-learning
 ---
 Machine learning is a subfield of computer science that evolved from the study of pattern recognition and computational learning theory in artificial intelligence. In 1959, Arthur Samuel defined machine learning as a "Field of study that gives computers the ability to learn without being explicitly programmed". Machine learning explores the study and construction of algorithms that can learn from and make predictions on data. Such algorithms operate by building a model from example inputs in order to make data-driven predictions or decisions expressed as outputs, rather than following strictly static program instructions.
