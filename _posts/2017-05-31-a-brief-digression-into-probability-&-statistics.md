@@ -300,8 +300,8 @@ We will discuss these test statistics in detail as we go along.
 
 <table style="width:100%;align=center">
 <tr>
-<th rowspan="2" colspan="2" style="text-align:center;">Table of error types</th>
-<th colspan="2" style="text-align:center;">Null hypothesis $$(H_0)$$ is</th>
+<th rowspan="2" colspan="2" style="text-align:center;"><strong>Table of error types</strong></th>
+<th colspan="2" style="text-align:center;"><strong>Null hypothesis $$(H_0)$$</strong></th>
 </tr>
 <tr>
 <td style="text-align:center;"><strong> True </strong></td>
