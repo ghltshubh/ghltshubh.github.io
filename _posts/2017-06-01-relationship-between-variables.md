@@ -93,3 +93,23 @@ Example: Summary information about ages of active psychologists by demographics.
 <td style="text-align:center">12.6</td>
 </tr>
 </table>
+
+**Discrete Variable(s):** Demography: (1), (2), (3), (4), (5), (6), (7)
+**Continuous Variable:** Age
+
+**Cross-Tabulation Tables/ Crosstabs/ Contingency Tables**
+
+- Method for summarizing two categorical variables
+- In practice, continuous variables may be at times summarized as categorical variables.
+- Example: Age could be divided into categories as young, adult and senior citizen, etc. Income could be divided into categories as poor, middle class, upper middle class, wealthy, etc.
+
+**Correlation Coefficient**
+
+- A quantification of the linear relationship between two variables
+- Ranges from -1 to +1
+- Used for variables on an interval or ratio scale
+
+
+$$r_{xy} = \frac{\sum_{i=1}^{i=n}\left({x_i\,-\,\bar{x}}\right)\left({y_i\,-\,\bar{y}}\right)}{\left(n\,-\,1\right)s_{x}s_{y}}
+ = \frac{\sum{\left( {x_i\,-\,\bar{x}} \right)}\left( {y_i\,-\,\bar{y}} \right)}{\sqrt{\sum\left({x_i\,-\,\bar{x}}\right)^2\sum\left({y_i\,-\,\bar{y}}\right)^2}}$$
+
