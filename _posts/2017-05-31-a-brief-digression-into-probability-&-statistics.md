@@ -261,7 +261,7 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 
 - **Confidence level or 1-𝛼 level:** The confidence level is the probability/ percentage of values that lie inside the confidence interval.
 
-**NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎) 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
+**NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎) $$\where$$ 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
 
 **How to compute a confidence interval** (when population std. deviation is known and sample size is larger than ~30)
 Compute the standard error of the sampling distribution $${\sigma}\over{\sqrt{n}}$$.
