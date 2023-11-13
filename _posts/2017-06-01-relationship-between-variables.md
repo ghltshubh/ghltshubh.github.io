@@ -113,3 +113,10 @@ Example: Summary information about ages of active psychologists by demographics.
 $$r_{xy} = \sum_{i=1}^{i=n}\frac{\left({x_i\,-\,\bar{x}}\right)\left({y_i\,-\,\bar{y}}\right)}{\left(n\,-\,1\right)s_{x}s_{y}}
  = \frac{\sum{\left( {x_i\,-\,\bar{x}} \right)}\left( {y_i\,-\,\bar{y}} \right)}{\sqrt{\sum\left({x_i\,-\,\bar{x}}\right)^2\sum\left({y_i\,-\,\bar{y}}\right)^2}}$$
 
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-6-4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+**NOTE:** Correlation coefficient does not capture nonlinear relationships. Many nonlinear relationships might exist which are not captured (𝑟 = 0) by correlation coefficient.
