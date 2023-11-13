@@ -261,13 +261,13 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 
 - **Confidence level or 1-𝛼 level:** The confidence level is the probability/ percentage of values that lie inside the confidence interval.
 
-**NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎) $$\where$$ 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
+**NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎), 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
 
 **How to compute a confidence interval** (when population std. deviation is known and sample size is larger than ~30)
 Compute the standard error of the sampling distribution $${\sigma}\over{\sqrt{n}}$$.
 Choose the desired confidence level and its corresponding significance level or alpha value.
 Determine the value of $$z_{\alpha \over {2}}$$ (for two sided confidence interval) also called the 𝑧-score.
-Compute the confidence interval $$\bar{x}\!{\pm}\!{z_{\alpha/2}}\!\frac{\sigma}{\sqrt{n}}$$
+Compute the confidence interval $$\bar{x}{\pm}{z_{\alpha/2}}\frac{\sigma}{\sqrt{n}}$$
 
 NOTE:
 𝑧-score or 𝑠𝑡𝑎𝑛𝑑𝑎𝑟𝑑-score = (𝑥−𝜇)/𝜎 ⇒ Number of standard deviations away 𝑥 is from its mean.
@@ -275,3 +275,47 @@ NOTE:
 𝛼 = 1 – 𝑐𝑜𝑛𝑓𝑖𝑑𝑒𝑛𝑐𝑒 𝑙𝑒𝑣𝑒𝑙 / 100. We use 𝛼 for one sided test and 𝛼/2 for two sided test to compute the z-score.
 
 𝛼 = 𝑠𝑖𝑔𝑛𝑖𝑓𝑖𝑐𝑎𝑛𝑐𝑒 level = 𝑡𝑦𝑝𝑒 𝐼 error rate
+
+**Hypothesis**
+A statistical hypothesis, sometimes called confirmatory data analysis, is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables.
+
+**Hypothesis Testing**
+A formal process to determine whether to accept or reject the null hypothesis based on statistical inference.
+
+- Null hypothesis: What would be expected if there was nothing unusual about the data. Can be thought of as the absence of effect or generally accepted wisdom.
+- Alternative hypothesis: Opposite of the null hypothesis. Can be one tailed or two tailed hypothesis test.
+- There are five steps in hypothesis testing:
+    - Making assumptions
+    - Stating the research, null and alternate hypotheses and selecting (setting) alpha
+    - Selecting the sampling distribution and specifying the test statistic
+    - Computing the test statistic
+    - Making a decision and interpreting the results
+
+We will discuss these test statistics in detail as we go along.
+
+**Type I & Type II errors**
+
+- Type 1 Error: The type I error rate or significance level is the probability of rejecting the null hypothesis given that it is true. It is denoted by the Greek letter 𝛼 (alpha) and is also called the alpha level. Often, the significance level is set to 0.05 (5%), implying that it is acceptable to have a 5% probability of incorrectly rejecting the null hypothesis.
+- Type 2 Error: When one fails to reject the null hypothesis when in reality it should be rejected.
+
+<table style="width:100%;align=center">
+<tr>
+<th rowspan="2" colspan="2" style="text-align:center;">Table of error types</th>
+<th colspan="2" style="text-align:center;">Null hypothesis ([latex]H_0[/latex]) is</th>
+</tr>
+<tr>
+<td style="text-align:center;"><strong> True </strong></td>
+<td style="text-align:center;"><strong> False </strong></td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align:center;"><strong>Decision About Null hypothesis ([latex]H_0[/latex])</strong></td>
+<td style="text-align:center;"><strong>Reject</strong></td>
+<td style="text-align:center;">Type I error (False Positive)</td>
+<td style="text-align:center;">Correct inference (True Positive)</td>
+</tr>
+<tr>
+<td style="text-align:center;"><strong>Fail to reject</strong></td>
+<td style="text-align:center;">Correct inference (True Negative)</td>
+<td style="text-align:center;">Type II error (False Negative)</td>
+</tr>
+</table>
