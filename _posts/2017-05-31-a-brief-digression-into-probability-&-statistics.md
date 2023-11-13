@@ -264,8 +264,16 @@ $$SE_{\bar{x}}$$ = sampling distribution standard deviation (not sample standard
 **NOTE:** In case of two tailed test, area under the curve(AUC) of the sampling distribution curve gives the probability of finding a specific value of statistic (𝑋) in a particular interval (𝜇 – 𝑛𝜎, 𝜇 + 𝑛𝜎) 𝑛 ∈ 𝐑. Therefore as the confidence level increases accuracy of the estimated parameter goes down. We usually do a two tailed test. For details on one-two tailed tests: [One-Two tailed tests](https://www.youtube.com/watch?v=9muWKhKqiks)
 
 
-H**ow to compute a confidence interval** (when population std. deviation is known and sample size is larger than ~30)
+**How to compute a confidence interval** (when population std. deviation is known and sample size is larger than ~30)
 Compute the standard error of the sampling distribution $${\sigma}\over{\sqrt{n}}$$.
 Choose the desired confidence level and its corresponding significance level or alpha value.
-Determine the value of $$z_{\alpha/2}$$ (for two sided confidence interval) also called the 𝑧-score.
-Compute the confidence interval $$$$
+Determine the value of $$z_{{\alpha}\over{2}}$$ (for two sided confidence interval) also called the 𝑧-score.
+Compute the confidence interval $$\bar{x}\pmz_{{\alpha}\over{2}}{\sigma}\over{{\sqrt$$
+
+- **Significance level or 𝛼 level:** The alpha level is the probability/ percentage of values that lie outside the confidence interval.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-5-10.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
