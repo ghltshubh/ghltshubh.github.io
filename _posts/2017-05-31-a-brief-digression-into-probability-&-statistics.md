@@ -48,7 +48,7 @@ $$x_i$$ = 2, 4, 7, 11, 16.5, 16.5, 19
 
 $$n$$ = 7
 
-Mean $$\bar{x} = \frac{\sum_{i=1}^n x_i}{n}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
+Mean $$\bar{x} = \sum_{i=1}^n \frac{x_i}{n}$$ = (2 + 4 + 7 + 11 + 15 + 16.5 + 19)/7 = 10.643
 
 Median = 11
 
@@ -62,7 +62,7 @@ Measuring spread of data:
 
 Range: Maximum value – Minimum value = 19 – 2 = 17
 
-Variance: $$s_{n-1}^2 = \frac{\sum_\left({x_i} – \bar{x}\right)^2}{n-1}$$
+Variance: $$s_{n-1}^2 = \sum_\frac{\left({x_i} – \bar{x}\right)^2}{n-1}$$
 
 Standard Deviation: $$s_{n-1} = \sqrt{Variance}$$
 
@@ -132,7 +132,7 @@ IQR = Q3 – Q1 = 15.75 – 6 = 9.75
     - Variables with a pronounced peak near the mean have high kurtosis.
     - Variables with a flat peak have a low kurtosis.
 
-- Kurtosis = $$\frac{\sum_{i=1}^n (x_i – \bar{x})^4}{(n-1)s^4}$$
+- Kurtosis = $$\frac{1}{N}\sum_{i=1}^{N}\frac{(x_i-\overline{x})^4}{\sigma^4} $$
 
 - Values for skewness and kurtosis near zero indicate the variable approximates a normal distribution.
 
