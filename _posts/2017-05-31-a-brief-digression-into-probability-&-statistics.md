@@ -122,7 +122,7 @@ IQR = Q3 – Q1 = 15.75 – 6 = 9.75
     </div>
 </div>
 
-- Skewness = $$\frac{\sum_{i=1}^n (x_i – \bar{x})^3}{(n-1)s^3}$$
+- Skewness = $$\frac{1}{N}\sum_{i=1}^{N}\frac{(x_i-\overline{x})^3}{\sigma^3}$$
 
     - Value of 0 indicates a perfectly symmetric variable.
     - Positive skewness: The majority of observations are to the left of the mean.
@@ -272,8 +272,3 @@ Compute the confidence interval $$\bar{x} {\pm} {z_{\alpha\over{2}}}{\sigma}\ove
 
 - **Significance level or 𝛼 level:** The alpha level is the probability/ percentage of values that lie outside the confidence interval.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/blog-5-10.png" title="" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
