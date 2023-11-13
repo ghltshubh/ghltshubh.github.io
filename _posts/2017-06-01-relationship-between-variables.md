@@ -94,6 +94,7 @@ Example: Summary information about ages of active psychologists by demographics.
 </tr>
 </table>
 
+
 **Discrete Variable(s):** Demography: (1), (2), (3), (4), (5), (6), (7)
 **Continuous Variable:** Age
 
