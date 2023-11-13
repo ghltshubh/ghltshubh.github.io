@@ -301,14 +301,14 @@ We will discuss these test statistics in detail as we go along.
 <table style="width:100%;align=center">
 <tr>
 <th rowspan="2" colspan="2" style="text-align:center;">Table of error types</th>
-<th colspan="2" style="text-align:center;">Null hypothesis ( $$H_0$$ ) is</th>
+<th colspan="2" style="text-align:center;">Null hypothesis $$(H_0)$$ is</th>
 </tr>
 <tr>
 <td style="text-align:center;"><strong> True </strong></td>
 <td style="text-align:center;"><strong> False </strong></td>
 </tr>
 <tr>
-<td rowspan="2" style="text-align:center;"><strong>Decision About Null hypothesis ($$H_0$$)</strong></td>
+<td rowspan="2" style="text-align:center;"><strong>Decision About Null hypothesis $$(H_0)$$</strong></td>
 <td style="text-align:center;"><strong>Reject</strong></td>
 <td style="text-align:center;">Type I error (False Positive)</td>
 <td style="text-align:center;">Correct inference (True Positive)</td>
