@@ -301,14 +301,14 @@ We will discuss these test statistics in detail as we go along.
 <table style="width:100%;align=center">
 <tr>
 <th rowspan="2" colspan="2" style="text-align:center;">Table of error types</th>
-<th colspan="2" style="text-align:center;">Null hypothesis ([latex]H_0[/latex]) is</th>
+<th colspan="2" style="text-align:center;">Null hypothesis ( $$H_0$$ ) is</th>
 </tr>
 <tr>
 <td style="text-align:center;"><strong> True </strong></td>
 <td style="text-align:center;"><strong> False </strong></td>
 </tr>
 <tr>
-<td rowspan="2" style="text-align:center;"><strong>Decision About Null hypothesis ([latex]H_0[/latex])</strong></td>
+<td rowspan="2" style="text-align:center;"><strong>Decision About Null hypothesis ($$H_0$$)</strong></td>
 <td style="text-align:center;"><strong>Reject</strong></td>
 <td style="text-align:center;">Type I error (False Positive)</td>
 <td style="text-align:center;">Correct inference (True Positive)</td>
@@ -319,3 +319,19 @@ We will discuss these test statistics in detail as we go along.
 <td style="text-align:center;">Type II error (False Negative)</td>
 </tr>
 </table>
+
+**NOTE:** “failing to reject the null hypothesis” is **NOT** the same as “accepting the null hypothesis”. It simply means that the data are not sufficiently persuasive for us to prefer the alternative hypothesis over the null hypothesis. Always take the conclusions with a grain of salt.
+
+**Problem**
+Assume we sample 10 (n=10) widgets and measure their thickness. The mean thickness of the widgets sampled is 7.55 units (𝑥¯=7.55) with a standard deviation of 0.1027 (s=0.1027). But we want to have widgets that are 7.5 units thick. Compute the confidence interval for the mean for a given level of Type I error (significance or alpha level or probability of incorrectly rejecting the null hypothesis).
+
+**Solution**
+Let’s assume that 𝛼 = 0.05 or 5%
+
+- Null hypothesis: Mean thickness = 7.5 units
+- Alternate hypothesis: Mean thickness ≠ 7.5 units(two sided test)
+- Compute the confidence interval for a given level of Type I error or alpha level.
+- If the test statistic ($$\bar{x}$$) falls within the confidence interval, the null hypothesis is rejected else it is accepted in favor of the alternative hypothesis.
+
+**NOTE:** Since the sample size is small and the population std. deviation is unknown we can’t use normal distribution z-score to compute the confidence interval. Instead we will use t-distribution t-score discussed further to compute confidence interval. The statistic may be different but the approach to compute confidence interval is still the same.
+For details on confidence interval and how to compute it: Confidence interval.
