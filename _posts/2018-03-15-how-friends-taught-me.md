@@ -26,7 +26,7 @@ I was happy that a random friends episode was just a couple of keystrokes away. 
 So to understand what’s happening here let’s recall some high school probability. If you throw a unbiased die there is an equal chance of getting a number from 1 to 6 because all the numbers have the same probability of 1/6 i.e. ideally you will get every number once in 6 throws. So it has a uniform distribution. However, if you have a biased die it may not be the case. This made me suspicious about the working of the script I implemented.
 To investigate this I visualised the output of the script by running it a million times and recording the output and found something unexpected.
 
-*For data nerds out there this process of running an experiment multiple times is called Montè Carlo simulations*
+For data nerds out there this process of running an experiment multiple times is called **Montè Carlo simulations**
 
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
