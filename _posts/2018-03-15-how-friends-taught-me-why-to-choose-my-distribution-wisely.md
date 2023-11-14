@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  How F.R.I.E.N.D.S taught me why to choose my distribution wisely.
+title:  How FRIENDS taught me why to choose my distribution wisely.
 date: 2018-03-15 16:40:16
 description: "Why to choose your probability distribution wisely"
-tags: statistics quirks
+tags: statistics quirks python bash friends monte-carlo-simulation
 categories: data-science machine-learning
 ---
 
@@ -28,12 +28,13 @@ To investigate this I visualised the output of the script by running it a millio
 
 *For data nerds out there this process of running an experiment multiple times is called Montè Carlo simulations*
 
-<div class="row justify-content-sm-center">
+|<div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/blog-8-1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-</div>
-<center>Bar plot: Episode vs. Frequency of episodes</center>
+</div>|
+| :-: |
+| Bar plot: Episode vs. Frequency of episodes |
 
 
 Apparently the 234 faced die that the sort method of the script used was not completely unbiased as I suspected earlier. As you can see it has a non uniform distribution across episodes which explains why it ended up playing some episodes more often than others.
@@ -54,12 +55,12 @@ p.communicate()
 
 This worked like a charm and gave the following distribution
 
-<div class="row justify-content-sm-center">
+| <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/blog-8-2.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-</div>
-<center>Bar plot: Episode vs. Frequency of episodes</center>
-
+</div>|
+| :-: |
+| Bar plot: Episode vs. Frequency of episodes |
 
 which seemed pretty uniform in a million trials. Thanks to the uniform distribution life was sweet again and that’s how I learnt why it’s important to choose your distribution wisely.
