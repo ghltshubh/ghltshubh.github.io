@@ -33,6 +33,8 @@ To investigate this I visualised the output of the script by running it a millio
         {% include figure.html path="assets/img/blog-8-1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+<center>Bar plot: Episode vs. Frequency of episodes</center>
+
 
 Apparently the 234 faced die that the sort method of the script used was not completely unbiased as I suspected earlier. As you can see it has a non uniform distribution across episodes which explains why it ended up playing some episodes more often than others.
 
@@ -57,5 +59,7 @@ This worked like a charm and gave the following distribution
         {% include figure.html path="assets/img/blog-8-2.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+<center>Bar plot: Episode vs. Frequency of episodes</center>
+
 
 which seemed pretty uniform in a million trials. Thanks to the uniform distribution life was sweet again and that’s how I learnt why it’s important to choose your distribution wisely.
