@@ -28,9 +28,13 @@ To investigate this I visualised the output of the script by running it a millio
 
 *For data nerds out there this process of running an experiment multiple times is called Montè Carlo simulations*
 
-|![](assets/img/blog-8-1.png)|
-| :-: |
-| Bar plot: Episode vs. Frequency of episodes |
+<div class="row justify-content-sm-center">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blog-8-1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+<center>Bar plot: Episode vs. Frequency of episodes</center> 
 
 
 Apparently the 234 faced die that the sort method of the script used was not completely unbiased as I suspected earlier. As you can see it has a non uniform distribution across episodes which explains why it ended up playing some episodes more often than others.
