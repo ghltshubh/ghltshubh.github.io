@@ -3,7 +3,7 @@ layout: post
 title:  How F.R.I.E.N.D.S taught me why to choose my distribution wisely.
 date: 2018-03-15 16:40:16
 description: "Why to choose your probability distribution wisely"
-tags: statistics python bash friends monte-carlo-simulation
+tags: statistics python bash monte-carlo-simulation friends
 categories: quirks
 ---
 
