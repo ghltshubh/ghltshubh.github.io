@@ -33,10 +33,9 @@ To investigate this I visualised the output of the script by running it a millio
         {% include figure.html path="assets/img/blog-8-1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
 <center>Bar plot: Episode vs. Frequency of episodes</center> 
 
-
+---
 Apparently the 234 faced die that the sort method of the script used was not completely unbiased as I suspected earlier. As you can see it has a non uniform distribution across episodes which explains why it ended up playing some episodes more often than others.
 
 So, I had to throw away the whole script and think of an alternate solution starting from the underlying distribution. Since I didn’t know how to generate a uniform distribution from command line that’s where Python came to the rescue. I wrote another script, this time in Python, to generate a uniform distribution and pick a number randomly from that distribution which was like choosing a number from an *unbiased* 234 faced die.
@@ -55,12 +54,12 @@ p.communicate()
 
 This worked like a charm and gave the following distribution
 
-| <div class="row justify-content-sm-center">
+<div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/blog-8-2.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-</div>|
-| :-: |
-| Bar plot: Episode vs. Frequency of episodes |
+</div>
+<center>Bar plot: Episode vs. Frequency of episodes</center>
 
+---
 which seemed pretty uniform in a million trials. Thanks to the uniform distribution life was sweet again and that’s how I learnt why it’s important to choose your distribution wisely.
