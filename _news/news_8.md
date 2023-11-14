@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Presented our work on Leveraging Citizen and Artificial Intelligence for Monitoring and Estimating Hazardous Events at the [AGU Fall Meeting 2021](https://ui.adsabs.harvard.edu/abs/2021AGUFMIN33A..04G) :microphone: 🧑‍🔬 :ocean: :tada:
+Presented our work on Leveraging Citizen and Artificial Intelligence for Monitoring and Estimating Hazardous Events at the [AGU Fall Meeting 2021](https://ui.adsabs.harvard.edu/abs/2021AGUFMIN33A..04G) :microphone: :ocean: :umbrella: 
