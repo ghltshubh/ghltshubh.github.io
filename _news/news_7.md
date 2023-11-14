@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Organized a [competition](https://earthdata.nasa.gov/learn/articles/impact-flood-competition) on "Global Flood Detection Challenge"! :tada:
+Organized a [competition](https://earthdata.nasa.gov/learn/articles/impact-flood-competition) on "Global Flood Detection Challenge"! :earth_americas: :ocean: :rain: :tada:
