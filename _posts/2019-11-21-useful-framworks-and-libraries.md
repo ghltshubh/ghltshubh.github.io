@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Big Data Visualization
-date: 2023-11-20 16:40:16
+date: 2019-11-20 16:40:16
 description: Big data visualization and the tools to do it.
 tags: statistics big-data visualization
 categories: data-science machine-learning
