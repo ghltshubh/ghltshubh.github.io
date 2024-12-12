@@ -6,7 +6,7 @@
 // Dimensions
 $max-content-width: {{ site.max_width }};
 
-@uses
+@import
   "variables",
   "themes",
   "themes_custom",
