@@ -9,4 +9,4 @@ nav_order: 5
 #   sidebar: left
 ---
 
-<embed src="https://ghltshubh.github.io/assets/pdf/Shubhankar_Gahlot.pdf" type="application/pdf" style="width:100%; height:1000px; margin-left: auto; margin-right: auto;" frameborder="0"/>
+<embed src="https://ghltshubh.github.io/assets/pdf/ShubhankarGahlot.pdf" type="application/pdf" style="width:100%; height:1000px; margin-left: auto; margin-right: auto;" frameborder="0"/>
