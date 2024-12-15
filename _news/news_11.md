@@ -6,4 +6,4 @@ related_posts: false
 ---
 
 
-Recieved New Zealand Ministry of Business Innovation and Employment Research funding (35k USD) :satellite: :ocean: :tada:
+Recieved New Zealand Ministry of Business Innovation and Employment Research funding (35k USD) 👨🏻‍🎓 :tada:
