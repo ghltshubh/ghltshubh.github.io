@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Big Data Visualization
+title:  List of frameworks and libraries
 date: 2019-11-20 16:40:16
-description: Big data visualization and the tools to do it.
+description: List of frameworks and libraries for robotics and machine learning.
 tags: statistics big-data visualization
 categories: data-science machine-learning
 ---
