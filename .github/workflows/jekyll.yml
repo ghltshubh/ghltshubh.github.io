@@ -19,19 +19,19 @@ jobs:
         with:
           fetch-depth: 1
       - name: Setup Ruby
-        uses: ruby/setup-ruby@9b6c5a447e7b6e74cc8493c06f63e6b2b4a78698
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
           bundler-cache: true
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@12c8cdebfd7de76e282a68b8c23a1c342ccfc4d4
+        uses: actions/configure-pages@v5
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
   deploy:
@@ -43,4 +43,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@4e2816d0a0a309bd5e61dc9f8943de2799e09c34
+        uses: actions/deploy-pages@v4
