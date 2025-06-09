@@ -20,17 +20,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+        # SHA for v4.1.1
+        # https://github.com/actions/checkout/releases/tag/v4.1.1
+        # SHA: 2f0085d0ebd8372e912a6f1f8f6decc9c23d8573
+        uses: actions/checkout@2f0085d0ebd8372e912a6f1f8f6decc9c23d8573
 
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        # SHA for v1.170.0
+        # https://github.com/ruby/setup-ruby/releases/tag/v1.170.0
+        uses: ruby/setup-ruby@9b6c5a447e7b6e74cc8493c06f63e6b2b4a78698
         with:
           ruby-version: '3.1'
           bundler-cache: true
-          cache-version: 0
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
+        # SHA for v4.0.0
+        # https://github.com/actions/configure-pages/releases/tag/v4.0.0
+        uses: actions/configure-pages@12c8cdebfd7de76e282a68b8c23a1c342ccfc4d4
 
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
@@ -38,7 +47,9 @@ jobs:
           JEKYLL_ENV: production
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        # SHA for v2.0.0
+        # https://github.com/actions/upload-pages-artifact/releases/tag/v2.0.0
+        uses: actions/upload-pages-artifact@b5cd8d68fe2dc3e5f44a8f317b72a89a4b7e58f2
 
   deploy:
     environment:
@@ -49,5 +60,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        # SHA for v4.0.4
+        # https://github.com/actions/deploy-pages/releases/tag/v4.0.4
+        uses: actions/deploy-pages@4e2816d0a0a309bd5e61dc9f8943de2799e09c34
 
