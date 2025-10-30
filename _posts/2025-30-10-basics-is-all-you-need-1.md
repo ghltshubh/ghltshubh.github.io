@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Building a High-Performance ML Pipeline: Lessons from Processing 162TB of Weather Data.
+title:  "Building a High-Performance ML Pipeline: Lessons from Processing 162TB of Weather Data."
 date: 2025-10-30 12:00:00
 description: Optimizing data pipelines for large-scale geospatial machine learning tasks.
 tags: big-data machine-learning performance optimization data-pipelines
