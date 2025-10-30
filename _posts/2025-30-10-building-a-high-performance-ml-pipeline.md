@@ -16,17 +16,17 @@ categories: data-science machine-learning big-data
 - [The Challenge](#the-challenge)
 - [Key Learnings](#key-learnings)
   - [1. The Hidden Zarr Compression Bottleneck](#1-the-hidden-zarr-compression-bottleneck-)
-  - [2. Coordinate Selection: The Silent Data Killer](#2-coordinate-selection-the-silent-data-killer-)
-  - [3. Zarr v3 API Changes Will Break Your Code](#3-zarr-v3-api-changes-will-break-your-code-)
-  - [4. Dask Configuration Doesn't Always Help](#4-dask-configuration-doesnt-always-help-)
-  - [5. Batch Size Matters More Than You Think](#5-batch-size-matters-more-than-you-think-)
-  - [6. Parallelize the Right Thing](#6-parallelize-the-right-thing-)
-  - [7. Memory-Efficient Processing Strategies](#7-memory-efficient-processing-strategies-)
-  - [8. ProcessPoolExecutor Pitfalls](#8-processpoolexecutor-pitfalls-)
-  - [9. Caching is Your Best Friend](#9-caching-is-your-best-friend-)
-  - [10. Data Integrity Issues](#10-data-integrity-issues-)
-  - [11. When More Cores Don't Help](#11-when-more-cores-dont-help-)
-  - [12. Diagnostic Tools Are Essential](#12-diagnostic-tools-are-essential-)
+  - [2. Dask Configuration Doesn't Always Help](#2-dask-configuration-doesnt-always-help-)
+  - [3. Batch Size Matters More Than You Think](#3-batch-size-matters-more-than-you-think-)
+  - [4. Parallelize the Right Thing](#4-parallelize-the-right-thing-)
+  - [5. Memory-Efficient Processing Strategies](#5-memory-efficient-processing-strategies-)
+  - [6. ProcessPoolExecutor Pitfalls](#6-processpoolexecutor-pitfalls-)
+  - [7. Caching is Your Best Friend](#7-caching-is-your-best-friend-)
+  - [8. Data Integrity Issues](#8-data-integrity-issues-)
+  - [9. When More Cores Don't Help](#9-when-more-cores-dont-help-)
+  - [10. Diagnostic Tools Are Essential](#10-diagnostic-tools-are-essential-)
+  - [11. Throughput Beats Per-Operation Speed](#11-throughput-beats-per-operation-speed-)
+  - [12. The Dask Lazy Loading Trap](#12-the-dask-lazy-loading-trap-)
 - [Final Performance Summary](#final-performance-summary)
 - [Takeaways for Your Next Data Pipeline](#takeaways-for-your-next-data-pipeline)
 - [The Bottom Line](#the-bottom-line)
@@ -69,220 +69,14 @@ Zarr files compressed with `blosc(nthreads=1)` force **single-threaded decompres
 When creating zarr files, use multi-threaded compression:
 
 ```python
-import numcodecs
-
-blosc_compressor = numcodecs.Blosc(
-    cname='zstd', 
-    clevel=3, 
-    shuffle=2, 
-    nthreads=12  # Use multiple threads!
-)
+blosc(cname='zstd', clevel=3, shuffle=2, nthreads=8)
 ```
 
-**Expected improvement:** 8-12× speedup on decompression
+**Expected improvement:** 8× speedup on decompression
 
 ---
 
-### 2. Coordinate Selection: The Silent Data Killer 💀
-
-#### The Bug That Cost Us Hours
-
-We spent hours debugging why we had **100% NaN values** in our dataset, only to discover it was a single line of code.
-
-#### The Mistake
-
-```python
-# WRONG - Using integer indexing
-lat_idx = int(51.5 + 90)  # = 141
-lon_idx = int(0.0)        # = 0
-
-coord_data = merged.isel(lat=lat_idx, lon=lon_idx)  # ❌ WRONG!
-# This selects the 142nd element in the array, which might not be UK!
-```
-
-#### What Was Happening
-
-- `.isel()` uses **integer positions** in the array
-- `lat_idx=141` selected the 142nd lat value (0-indexed)
-- This might be lat=51°, lat=52°, or even a NaN-filled coordinate!
-- The data existed, but we were looking at the wrong spot
-
-#### The Fix
-
-```python
-# CORRECT - Using value-based selection
-coord_data = merged.sel(lat=51.5, lon=0.0, method="nearest")  # ✅ CORRECT!
-# This finds the coordinate VALUE nearest to 51.5°N, 0.0°E
-```
-
-#### Why This Matters
-
-**Geographic coordinates are NOT always sequential integers!**
-
-Your dataset might have:
-```python
-lat: [-90.0, -89.0, ..., 50.0, 52.0, 53.0, ..., 90.0]
-#                           ↑
-#                    Note: no 51.0 or 51.5!
-```
-
-- Using `isel(lat=141)` gives you whatever is at index 141
-- Using `sel(lat=51.5, method="nearest")` gives you lat=52.0 (the closest actual value)
-
-#### The Symptom: 100% NaN
-
-```
-NaNs found: 15,504,300 (100.00%)
-  - In features: 15,504,300  ← All features NaN
-  - In target: 14,564,790    ← 94% target NaN
-After: 0 valid samples (0.0%)
-```
-
-This pattern meant we were extracting data from an **invalid coordinate** that had no actual data.
-
-#### The Diagnostic Process
-
-1. **Check the working code first**
-   - Found a notebook that successfully loaded the same data
-   - Compared the coordinate selection methods
-
-2. **Spot the difference**
-   - Working code: `.sel(lat=51.5, lon=0.0, method="nearest")`
-   - Broken code: `.isel(lat=141, lon=0)`
-
-3. **Understand the coordinate grid**
-   - Inspected actual lat/lon values in the dataset
-   - Realized lat might be `[..., 50.0, 52.0, ...]` not continuous
-
-#### Best Practices
-
-**Always use `.sel()` with `method="nearest"` for geographic coordinates:**
-
-```python
-# ✅ GOOD - Value-based selection
-data = ds.sel(lat=51.5, lon=0.0, method="nearest")
-
-# ❌ BAD - Index-based selection
-lat_idx = int(lat + 90)
-data = ds.isel(lat=lat_idx, lon=lon_idx)
-```
-
-**When to use each method:**
-
-- `.sel()` - When you have coordinate **values** (lat/lon, timestamps, etc.)
-- `.isel()` - When you have **integer positions** (first 10 items, every other row, etc.)
-- `method="nearest"` - Handles non-exact coordinate matching
-
-#### The Lesson
-
-> **Never assume coordinate grids are regular or sequential.**
-
-Always inspect your actual coordinate values:
-
-```python
-print(f"Lat values: {ds.lat.values}")
-print(f"Lon values: {ds.lon.values}")
-```
-
-And use value-based selection with `method="nearest"` for geographic data.
-
----
-
-### 3. Zarr v3 API Changes Will Break Your Code 🔧
-
-#### The Error
-
-```python
-AttributeError: module 'zarr' has no attribute 'Blosc'
-```
-
-#### The Confusion
-
-We were using `zarr_format=2` in our code, so why was Zarr v3 causing issues?
-
-#### Understanding the Distinction
-
-There are **two different things** called "zarr":
-
-1. **Zarr Storage Format** (v2 or v3) - the file format on disk
-2. **Zarr Python Package** (v2.x or v3.x) - the API you use in code
-
-**You can write zarr v2 FORMAT files using zarr v3 PACKAGE API!**
-
-#### The Breaking Change
-
-**Zarr v2 Package (old):**
-```python
-import zarr
-
-compressor = zarr.Blosc(cname='zstd', clevel=3, shuffle=2, nthreads=12)
-```
-
-**Zarr v3 Package (new):**
-```python
-import zarr
-import numcodecs  # Separate package!
-
-compressor = numcodecs.Blosc(cname='zstd', clevel=3, shuffle=2, nthreads=12)
-```
-
-#### The Fix
-
-```python
-import numcodecs  # Add this import
-
-# This works with zarr v3 package, writing zarr v2 format files
-coord_slice.to_zarr(
-    path, 
-    mode='w', 
-    zarr_format=2,  # ← Storage format (v2)
-    encoding={
-        var: {
-            'compressor': numcodecs.Blosc(  # ← API (v3)
-                cname='zstd', 
-                clevel=3, 
-                shuffle=2, 
-                nthreads=12
-            )
-        }
-        for var in data_vars
-    }
-)
-```
-
-#### Why This Happens
-
-- Many environments now default to zarr v3 package
-- Zarr v3 moved compression codecs to the separate `numcodecs` library
-- `zarr_format=2` only controls the **file format**, not the **API**
-
-#### Best Practice
-
-**Check your zarr version and adjust imports:**
-
-```python
-import zarr
-print(f"Zarr version: {zarr.__version__}")
-
-# If zarr >= 3.0:
-import numcodecs
-compressor = numcodecs.Blosc(...)
-
-# If zarr < 3.0:
-compressor = zarr.Blosc(...)
-```
-
-Or better yet, just always use `numcodecs.Blosc()` - it works in both versions:
-
-```python
-# Works in zarr v2 and v3
-import numcodecs
-compressor = numcodecs.Blosc(cname='zstd', clevel=3, shuffle=2, nthreads=12)
-```
-
----
-
-### 4. Dask Configuration Doesn't Always Help ⚙️
+### 2. Dask Configuration Doesn't Always Help ⚙️
 
 #### What We Tried
 
@@ -315,7 +109,7 @@ Nothing. Still single-threaded. CPU usage remained at 100% (1 core).
 
 ---
 
-### 5. Batch Size Matters More Than You Think 📦
+### 3. Batch Size Matters More Than You Think 📦
 
 #### The Evolution
 
@@ -340,7 +134,7 @@ Nothing. Still single-threaded. CPU usage remained at 100% (1 core).
 #### How to Calculate Optimal Batch Size
 
 ```
-1. Check single file size: ~15GB per file
+1. Check single file size: ~15GB per file_id
 2. Available RAM: 768GB
 3. Target usage: ~20% = 150GB
 4. Batch size: 150GB / 15GB = 10 files per batch
@@ -348,7 +142,7 @@ Nothing. Still single-threaded. CPU usage remained at 100% (1 core).
 
 ---
 
-### 6. Parallelize the Right Thing 🎯
+### 4. Parallelize the Right Thing 🎯
 
 #### The Breakthrough
 Separating I/O from CPU work
@@ -389,7 +183,7 @@ Total: ~615 seconds/batch
 
 ---
 
-### 7. Memory-Efficient Processing Strategies 💾
+### 5. Memory-Efficient Processing Strategies 💾
 
 #### Three Approaches We Tested
 
@@ -411,7 +205,7 @@ Load entire 336GB → Extract features → Train
 
 ##### ❌ Approach 2: Tiny Batches
 ```
-23 batches of 3 files each
+23 batches of 3 file_ids each
 ```
 
 **Pros:**
@@ -426,7 +220,7 @@ Load entire 336GB → Extract features → Train
 
 ##### ✅ Approach 3: Balanced Batches
 ```
-7 batches of 10 files each
+7 batches of 10 file_ids each
 ```
 
 **Pros:**
@@ -455,7 +249,7 @@ Profile your RAM usage and find the largest batch size that fits comfortably. Le
 
 ---
 
-### 8. ProcessPoolExecutor Pitfalls 🕳️
+### 6. ProcessPoolExecutor Pitfalls 🕳️
 
 #### The Mystery
 Worker processes would hang indefinitely with no error message. No logs, no timeout, no crash - just eternal silence.
@@ -503,12 +297,21 @@ Multiprocessing + complex I/O libraries = potential deadlocks. Always add timeou
 
 ---
 
-### 9. Caching is Your Best Friend 💰
+### 7. Caching is Your Best Friend 💰
 
 #### The Strategy
 
+```
+1. Download each batch once to local SSD
+2. Cache with coordinate-specific directory names
+3. Check cache before re-downloading
+4. Validate cached files before trusting them
+```
+
+#### The Implementation
+
 ```python
-CACHE_DIR = f"/local_ssd/batch_cache_{lat}_{lon}"
+CACHE_DIR = f"/local_ssd/batch_cache_uk_{lat}_{lon}"
 
 # Check cache first
 if os.path.exists(f"{CACHE_DIR}/batch_{i}.zarr"):
@@ -530,35 +333,12 @@ save_to_cache()
 
 **Speed improvement:** 30× faster for subsequent runs
 
-#### Critical: Match Coordinate Selection in Cache
-
-**Bug we found:**
-
-```python
-# Download phase - WRONG coordinate!
-cached_data = merged.isel(lat=141, lon=0)  # ❌ Gets wrong coordinate
-
-# Training phase - CORRECT coordinate!
-model_data = ds.sel(lat=51.5, lon=0.0, method="nearest")  # ✅ Gets UK
-
-# Result: Cache has data from lat index 141, not UK!
-# Everything downstream gets 100% NaN
-```
-
-**The fix:**
-
-```python
-# BOTH phases must use the same method:
-cached_data = merged.sel(lat=51.5, lon=0.0, method="nearest")  # ✅
-model_data = ds.sel(lat=51.5, lon=0.0, method="nearest")       # ✅
-```
-
 #### Best Practices
 
 1. **Include parameters in cache name**
    ```
-   batch_cache_51.5_0.0  ← Good (coordinate-specific)
-   batch_cache           ← Bad (conflicts)
+   batch_cache_uk_51.5_0.0  ← Good (coordinate-specific)
+   batch_cache              ← Bad (conflicts)
    ```
 
 2. **Validate cache files**
@@ -576,32 +356,32 @@ model_data = ds.sel(lat=51.5, lon=0.0, method="nearest")       # ✅
    - Network storage: 100-500 MB/s
    - **10-70× faster** for local SSD
 
-4. **Invalidate cache when code changes**
-   - Coordinate selection method changed? Force redownload!
-   - Add version numbers to cache directory names
-   - Set `FORCE_REDOWNLOAD = True` temporarily
+4. **Implement cache cleanup strategy**
+   - Set cache size limits
+   - Use LRU (Least Recently Used) eviction
+   - Clean up on successful completion (optional)
 
 ---
 
-### 10. Data Integrity Issues 🔍
+### 8. Data Integrity Issues 🔍
 
 #### The Surprise
-After concatenating 22 batches, we expected 95 unique entries but found only 69.
+After concatenating 22 batches, we expected 95 unique file_ids but found only 69.
 
 #### The Diagnosis
 
 ```
-Batch 0: entries [0, 1, 2, 3]
-Batch 1: entries [0, 1, 2, 3]  ← DUPLICATE!
-Batch 2: entries [4, 5, 6]
+Batch 0: file_ids [0, 1, 2, 3]
+Batch 1: file_ids [0, 1, 2, 3]  ← DUPLICATE!
+Batch 2: file_ids [4, 5, 6]
 ...
 ```
 
-**Result:** 26 duplicate entries across batches
+**Result:** 26 duplicate file_ids across batches
 
 #### The Impact
 
-- Concatenating created duplicate rows
+- Concatenating along `file_id` created duplicate rows
 - Silent data corruption (no error raised)
 - Models would train on inflated datasets
 - Results would be biased toward duplicated time periods
@@ -610,25 +390,24 @@ Batch 2: entries [4, 5, 6]
 
 ```python
 # 1. Detect duplicates
-unique_ids, unique_indices = np.unique(
-    dataset.index.values, 
+unique_file_ids, unique_indices = np.unique(
+    dataset.file_id.values, 
     return_index=True
 )
 
 # 2. Count them
-n_duplicates = len(dataset.index) - len(unique_ids)
+n_duplicates = len(dataset.file_id) - len(unique_file_ids)
 
 # 3. Remove duplicates (keep first occurrence)
 if n_duplicates > 0:
     unique_indices = np.sort(unique_indices)
-    dataset = dataset.isel(index=unique_indices)
-    print(f"Removed {n_duplicates} duplicates")
+    dataset = dataset.isel(file_id=unique_indices)
 ```
 
 #### Prevention Strategies
 
 1. **Validate during data creation**
-   - Ensure batches have non-overlapping indices
+   - Ensure batches have non-overlapping file_ids
    - Add assertions in batch creation code
 
 2. **Check after concatenation**
@@ -636,15 +415,19 @@ if n_duplicates > 0:
    - Log warnings for duplicates
 
 3. **Add metadata**
-   - Include index ranges in batch metadata
+   - Include file_id ranges in batch metadata
    - Document expected ranges
+
+4. **Data source alignment**
+   - Verify both data sources have same file_id scheme
+   - Check if paths should be merged vs concatenated
 
 #### The Lesson
 **Never trust data integrity implicitly.** Always validate dimension uniqueness after concatenation, especially with multiple data sources.
 
 ---
 
-### 11. When More Cores Don't Help 🚫
+### 9. When More Cores Don't Help 🚫
 
 #### The Question
 "We have 96 cores. Why not use 64 or 96 workers instead of 32?"
@@ -702,7 +485,7 @@ Maximum speedup = 50×
 
 ---
 
-### 12. Diagnostic Tools Are Essential 🔧
+### 10. Diagnostic Tools Are Essential 🔧
 
 #### The Toolkit
 
@@ -768,25 +551,24 @@ def log_memory():
 log_memory()
 ```
 
-##### 5. Data Inspection
+##### 5. Python Profilers
 
-**Check coordinate values:**
-```python
-# Always inspect what you're actually getting
-print(f"Lat values: {ds.lat.values}")
-print(f"Lon values: {ds.lon.values}")
-print(f"Lat range: {ds.lat.min().values} to {ds.lat.max().values}")
+**For CPU profiling:**
+```bash
+python -m cProfile -o output.prof script.py
+python -m pstats output.prof
+```
 
-# Check NaN percentages
-nan_pct = np.isnan(data).sum() / data.size * 100
-print(f"NaN percentage: {nan_pct:.2f}%")
+**For memory profiling:**
+```bash
+pip install memory_profiler
+python -m memory_profiler script.py
 ```
 
 ##### 6. Zarr Store Inspector
 
 ```python
 import zarr
-import numcodecs
 
 # Check compression settings
 z = zarr.open('path/to/store.zarr')
@@ -796,10 +578,6 @@ print(z.info)  # Shows codec, chunks, dtype
 for key in z.arrays():
     arr = z[key]
     print(f"{key}: {arr.compressor}")
-    
-# Check zarr version
-print(f"Zarr version: {zarr.__version__}")
-print(f"Numcodecs available: {'numcodecs' in dir()}")
 ```
 
 #### The Learning
@@ -812,7 +590,299 @@ print(f"Numcodecs available: {'numcodecs' in dir()}")
 3. Monitor resource usage in real-time
 4. Profile before optimizing
 5. Measure improvements quantitatively
-6. **Inspect your data - never assume it's structured as expected**
+
+---
+
+### 11. Throughput Beats Per-Operation Speed 🎯
+
+#### The Dilemma
+
+You have 96 cores. Should you:
+- **Option A:** 8 workers × 12 threads = 96 total threads
+- **Option B:** 16 workers × 6 threads = 96 total threads
+
+Most people choose A, thinking "more threads per operation = faster operations."
+
+#### The Reality Check
+
+**What actually takes time:**
+
+| Phase | Time per Batch | Affected by Threads? |
+|-------|----------------|---------------------|
+| Network download | 500-700s | ❌ No |
+| Decompress source | 600-900s | ❌ No (source codec fixed) |
+| **Compress output** | **50-100s** | **✅ Yes** |
+| **Total** | **~1,500s** | **Only ~5%** |
+
+You're only optimizing 5% of the operation!
+
+#### The Comparison
+
+**Option A: 8 workers × 12 threads**
+```
+Individual compression: 50s (fast)
+Total batches to process: 22
+Can process in parallel: 8 at a time
+Rounds needed: 22 ÷ 8 = 2.75 rounds
+Total time: 1,500s × 2.75 = 4,125s (69 minutes)
+```
+
+**Option B: 16 workers × 6 threads**
+```
+Individual compression: 75s (1.5× slower)
+Total batches to process: 22
+Can process in parallel: 16 at a time
+Rounds needed: 22 ÷ 16 = 1.4 rounds
+Total time: 1,550s × 1.4 = 2,131s (36 minutes)
+```
+
+**Result: Option B is 48% faster overall, despite slower individual compression!**
+
+#### The Principle
+
+> **Maximize throughput (operations/time), not operation speed.**
+
+**Throughput Formula:**
+```
+Throughput = (Number of Workers) / (Time per Operation)
+
+Option A: 8 / 1,500s = 0.0053 batches/second
+Option B: 16 / 1,550s = 0.0103 batches/second
+
+Option B has 94% higher throughput!
+```
+
+#### The CPU Utilization View
+
+**Option A: 8 workers × 12 threads**
+```
+Worker utilization over time:
+████████░░░░░░░░░░░░░░░░░░░░  (8/16 potential workers active)
+                               (~50% worker utilization)
+Cores active: ~96 (but only 8 batches being processed)
+```
+
+**Option B: 16 workers × 6 threads**  
+```
+Worker utilization over time:
+████████████████████████████  (16/16 potential workers active)
+                               (100% worker utilization)
+Cores active: ~96 (16 batches being processed)
+```
+
+Even with the same number of active cores, more workers = better throughput.
+
+#### When This Applies
+
+This principle works when:
+- ✅ You have a queue of independent operations
+- ✅ The bottleneck is NOT the parallelized part (only 5% of time)
+- ✅ You have excess capacity (cores/RAM)
+
+This doesn't apply when:
+- ❌ You have a single large operation (no queue)
+- ❌ The parallelized part IS the bottleneck (98% of time)
+- ❌ You're at resource limits
+
+#### The Takeaway
+
+When you have a queue of operations with a fixed bottleneck:
+
+**Don't optimize:** The 5% that's already fast
+**Do optimize:** Process more items in parallel
+
+The 3% slowdown per batch is completely dominated by the 2× speedup from parallel processing.
+
+It's not about how fast each batch completes - it's about how many batches complete per hour.
+
+---
+
+### 12. The Dask Lazy Loading Trap 🪤
+
+#### The Nightmare Scenario
+
+You spend 90 minutes downloading 300GB of data from Google Cloud Storage, carefully cache it to local SSD, and breathe a sigh of relief. The next run loads in seconds. Perfect! 
+
+Then you start training and discover your data is 100% NaN. Hours of work, completely wasted.
+
+What happened?
+
+#### The Discovery
+
+When we checked our cache directory, something was very wrong:
+
+```
+Downloaded: 22 batches × ~13GB each = 286GB expected
+Actual cache size: 0.4GB (18MB per batch!)
+```
+
+18MB is metadata size, not data. Our "cache" contained **pointers back to the source files**, not the actual data.
+
+#### The Root Cause: `.compute()` vs `.load()`
+
+The bug was subtle:
+
+```python
+coord_slice = merged.sel(lat=51.5, lon=0.0, method="nearest")
+coord_slice_computed = coord_slice.compute()  # ❌ 
+coord_slice_computed.to_zarr("cache.zarr")
+```
+
+We thought `.compute()` would force everything into memory as numpy arrays. It didn't.
+
+**What `.compute()` does:**
+- Executes the dask computation graph
+- Returns the computed result
+- But the result may still be wrapped in dask arrays
+
+**What `.load()` does:**
+- Loads data into memory IN-PLACE
+- Forces conversion to numpy arrays
+- Modifies the dataset directly
+
+The difference is critical for caching.
+
+#### Why This Failed Silently
+
+When xarray writes a dataset to zarr, it checks each array:
+
+```python
+if isinstance(array, dask.array.Array):
+    # Write as lazy dask (metadata + chunk references)
+else:
+    # Write as numpy (actual data)
+```
+
+Our "computed" dataset still contained dask arrays, so xarray wrote metadata and references to the original GCS files. The cache was just storing instructions like "load chunk 0 from gs://bucket/batch_000/..." instead of actual values.
+
+**The result:** Every time we "loaded from cache," we were actually fetching from GCS again, using the wrong coordinates, getting 100% NaN.
+
+#### The Fix
+
+One word change:
+
+```python
+# WRONG:
+coord_slice_computed = coord_slice.compute()
+
+# RIGHT:
+coord_slice_loaded = coord_slice.load()
+```
+
+That's it. `.load()` guarantees numpy arrays.
+
+#### The Validation Strategy
+
+The real lesson: **verify immediately after caching**.
+
+We added a simple check after each batch:
+
+```python
+# After writing cache
+ds = xr.open_zarr(cache_path)
+
+# Check 1: Is it actually numpy?
+assert 'dask' not in type(ds['temperature'].data).__name__
+
+# Check 2: Is the file size reasonable?
+size_gb = get_directory_size(cache_path) / (1024**3)
+assert size_gb > 5.0, f"Cache suspiciously small: {size_gb}GB"
+
+# Check 3: Can we access actual values?
+sample = ds['temperature'].values[0, 0, 0, 0]
+assert not np.isnan(sample), "Sample data is NaN"
+```
+
+With validation in place, we would have caught the bug on the first batch (in 4 minutes) instead of after all 22 batches (90 minutes).
+
+#### Why This Is So Dangerous
+
+**Silent failure:**
+- No errors or exceptions raised
+- Files are created successfully  
+- Everything "looks" fine
+- Cache appears to work (loads quickly)
+- Only fails later when you check the actual data
+
+**Devastating consequences:**
+- Hours of downloading wasted
+- Training pipeline fails mysteriously
+- Hard to diagnose (looks like data quality issue, not caching bug)
+- High restart cost (must redownload everything)
+
+**The smoking gun:** If your cache is suspiciously small, you have lazy references, not data.
+
+#### Real-World Impact
+
+**Time lost on this bug:**
+- 90 minutes: Initial download
+- 60 minutes: "Loading" from cache (actually re-fetching from GCS)
+- 120 minutes: Debugging why data is 100% NaN
+- 90 minutes: Re-downloading with fix
+
+**Total: 6 hours lost to one word**
+
+#### The Documentation Gap
+
+Xarray's documentation says `.compute()` will "load lazy arrays into memory." This is technically true but dangerously misleading. The arrays are computed, but not necessarily converted to numpy.
+
+The docs don't emphasize that **for caching, you must use `.load()`**.
+
+#### The Broader Pattern
+
+This isn't just about xarray. The lesson applies anywhere lazy evaluation meets caching:
+
+**Dask dataframes:**
+```python
+df.compute().to_parquet("cache.parquet")  # Might still be lazy!
+df.persist().to_parquet("cache.parquet")  # Forces materialization
+```
+
+**Tensorflow datasets:**
+```python
+ds.cache()  # Might cache lazy ops
+ds.cache().prefetch()  # Forces materialization
+```
+
+**Spark:**
+```python
+df.cache()  # Lazy
+df.persist()  # Forces storage
+```
+
+The pattern repeats: **lazy evaluation frameworks have subtle differences between "compute" and "materialize."**
+
+#### How to Avoid This
+
+**1. Use the right loading method**
+- Xarray: `.load()` not `.compute()`
+- Understand your framework's materialization semantics
+
+**2. Validate immediately**
+- Check file sizes match expectations
+- Verify data types (numpy vs dask)
+- Sample actual values
+- Fail fast if validation fails
+
+**3. Test before scaling**
+- Cache one batch first
+- Verify it thoroughly
+- Only then cache all batches
+
+**4. Trust but verify**
+- Don't assume success
+- Add assertions liberally
+- Monitor disk space during operations
+
+#### The Takeaway
+
+> **Lazy evaluation + caching = careful validation required**
+
+One character difference (`.compute()` vs `.load()`) cost us 6 hours. The bug was silent, the symptoms were delayed, and the diagnosis was difficult.
+
+**The antidote:** Validate aggressively. Check your cache immediately after creation. If file sizes don't match expectations, something is wrong.
+
+In distributed data pipelines, the most expensive bugs are the ones that fail silently and succeed loudly.
 
 ---
 
@@ -830,15 +900,6 @@ print(f"Numcodecs available: {'numcodecs' in dir()}")
 | **Total time/batch** | 850s | 765s | 1.1× faster |
 | **Total batches** | 23 batches | 7 batches | - |
 | **Total pipeline** | ~5.5 hours | ~1.5 hours | **3.7× faster** |
-| **Subsequent runs** | ~5.5 hours | ~4 minutes | **82× faster** |
-
-### Bug Fixes Impact
-
-| Bug | Time Lost | Impact |
-|-----|-----------|--------|
-| Wrong coordinate selection (.isel vs .sel) | 3+ hours debugging | Critical - 100% NaN |
-| Zarr v3 API (zarr.Blosc vs numcodecs.Blosc) | 1 hour debugging | Critical - code crash |
-| Cache invalidation after coordinate fix | 2 hours re-download | Medium - one-time cost |
 
 ### Key Optimizations Impact
 
@@ -848,7 +909,6 @@ print(f"Numcodecs available: {'numcodecs' in dir()}")
 | Parallel extraction | ~2.0 hours | Very High |
 | Efficient caching | Infinite (subsequent runs) | Critical |
 | Better batch sizing | ~0.5 hours | Medium |
-| Fixing coordinate selection | Infinite (enabled pipeline) | Critical |
 
 ### What We Couldn't Fix
 
@@ -863,105 +923,94 @@ print(f"Numcodecs available: {'numcodecs' in dir()}")
 
 ### Top 12 Lessons
 
-1. **🎯 Use .sel() not .isel() for coordinates**
-   - Geographic coordinates are rarely sequential integers
-   - Always use `method="nearest"` for value-based selection
-   - Inspect coordinate values before assuming structure
-   - **This one bug caused 100% NaN - check it first!**
-
-2. **🔧 Understand Zarr v3 API changes**
-   - `zarr_format` (storage) ≠ zarr package version (API)
-   - Use `numcodecs.Blosc()` not `zarr.Blosc()`
-   - Works in both zarr v2 and v3 packages
-
-3. **🔍 Profile first, optimize second**
+1. **🔍 Profile first, optimize second**
    - Find the actual bottleneck with `top`, `htop`, profilers
    - Don't assume - measure
-   - Check data validity before blaming the pipeline
 
-4. **💾 Compression settings matter**
+2. **💾 Compression settings matter**
    - Multi-threaded codecs save hours
    - Settings are permanent - choose wisely
    - Test decompression speed during prototyping
-   - Use `nthreads=8-12` for multi-core systems
 
-5. **📦 Batch size is critical**
+3. **📦 Batch size is critical**
    - Balance overhead vs memory
    - Target 10-20% of available RAM
    - Profile memory usage to find sweet spot
 
-6. **🎯 Parallelize the right operations**
+4. **🎯 Parallelize the right operations**
    - CPU-bound work: highly parallelizable
    - I/O-bound work: usually can't parallelize
    - Focus on CPU-bound bottlenecks
 
-7. **💰 Cache aggressively (but validate!)**
+5. **💰 Cache aggressively**
    - Local SSD storage is cheap
    - 30× speedup for repeated operations
    - Include parameters in cache keys
-   - **Invalidate cache when code changes!**
 
-8. **🔧 Add timeouts everywhere**
+6. **🔧 Add timeouts everywhere**
    - Prevent silent hangs
    - Fail fast, not never
    - Always use `future.result(timeout=X)`
 
-9. **✅ Validate data integrity**
+7. **✅ Validate data integrity**
    - Check for duplicates after merging
    - Verify dimension uniqueness
-   - Check NaN percentages at each step
    - Add assertions liberally
 
-10. **📊 Monitor in real-time**
-    - Use `top`/`htop` to verify assumptions
-    - Add logging with timestamps
-    - Track memory usage
-    - **Print NaN percentages after each operation**
+8. **📊 Monitor in real-time**
+   - Use `top`/`htop` to verify assumptions
+   - Add logging with timestamps
+   - Track memory usage
 
-11. **🚫 Know when NOT to parallelize**
-    - Some operations can't be sped up
-    - Thread overhead can make things slower
-    - Amdahl's Law: optimize the bottleneck
+9. **🚫 Know when NOT to parallelize**
+   - Some operations can't be sped up
+   - Thread overhead can make things slower
+   - Amdahl's Law: optimize the bottleneck
 
-12. **⚙️ Dask isn't magic**
+10. **⚙️ Dask isn't magic**
     - Can't fix codec-level bottlenecks
     - Only helps with computation graphs
     - Profile to see if it actually helps
+
+11. **🎯 Optimize for throughput, not speed**
+    - More parallel workers beats faster individual operations
+    - When 95% of time is I/O, don't over-optimize the 5%
+    - Queue processing efficiency > per-item latency
+
+12. **🪤 Watch for lazy evaluation traps**
+    - Use `.load()` not `.compute()` for caching
+    - Validate immediately after cache creation
+    - Check file sizes and data types
+    - Test on one item before scaling to all
 
 ---
 
 ## The Bottom Line
 
-Working with massive datasets requires understanding the full stack - from compression codecs to multiprocessing semantics to coordinate selection methods.
+Working with massive datasets requires understanding the full stack - from compression codecs to multiprocessing semantics to hardware capabilities.
 
 ### Key Insights
 
 **The biggest performance gains often come from:**
-- ✅ Fixing fundamental bugs (coordinate selection)
 - ✅ Fixing fundamental design choices (compression settings)
-- ✅ Strategic caching with proper invalidation
+- ✅ Strategic caching
 - ✅ Right-sizing batches
+- ✅ Validating assumptions immediately
 
 **Not from:**
 - ❌ Adding more parallelism everywhere
 - ❌ Complex distributed computing frameworks
 - ❌ Throwing more hardware at the problem
 
-### The Golden Rules
+### The Golden Rule
 
 > **The most expensive operation is the one you don't need to do.**
 
-- Cache it (but invalidate when needed)
+- Cache it
 - Batch it smartly
 - Parallelize what actually benefits from parallelism
 - Fix the bottleneck, not everything else
-
-> **The most dangerous bug is the silent one.**
-
-- 100% NaN can come from a single wrong function call
-- Always validate data at each pipeline stage
-- Use `.sel()` with `method="nearest"` for coordinates
-- Never assume - always inspect
+- Validate aggressively
 
 ---
 
@@ -969,8 +1018,6 @@ Working with massive datasets requires understanding the full stack - from compr
 
 ### Recommended Reading
 
-- [Xarray Indexing Documentation](https://docs.xarray.dev/en/stable/user-guide/indexing.html)
-- [Zarr v3 Migration Guide](https://zarr.readthedocs.io/en/stable/migration.html)
 - [Zarr Documentation - Compression](https://zarr.readthedocs.io/en/stable/tutorial.html#compression)
 - [Dask Best Practices](https://docs.dask.org/en/stable/best-practices.html)
 - [Amdahl's Law Explained](https://en.wikipedia.org/wiki/Amdahl%27s_law)
@@ -983,10 +1030,5 @@ Working with massive datasets requires understanding the full stack - from compr
 - `memory_profiler` - Memory usage profiling
 - `cProfile` - CPU profiling
 - `zarr` - Array storage library
-- `numcodecs` - Compression codecs for zarr
 - `dask` - Parallel computing library
 - `xarray` - Multi-dimensional labeled arrays
-
----
-
-**Questions or feedback?** Feel free to reach out - I learned these lessons the hard way so you don't have to! 🚀
