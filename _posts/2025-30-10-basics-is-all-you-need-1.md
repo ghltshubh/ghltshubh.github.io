@@ -724,7 +724,3 @@ Working with massive datasets requires understanding the full stack - from compr
 - `zarr` - Array storage library
 - `dask` - Parallel computing library
 - `xarray` - Multi-dimensional labeled arrays
-
----
-
-*Built with pain, optimized with data, documented with love.* ❤️
