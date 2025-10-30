@@ -1,1 +1,0 @@
-Benchmark NN on MNIST with 1 to 100 hidden units using numpy, tensorflow, pytorch, jax.
