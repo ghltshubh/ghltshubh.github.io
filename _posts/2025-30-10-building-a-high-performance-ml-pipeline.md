@@ -2,12 +2,12 @@
 layout: post
 title:  "Building a High-Performance ML Pipeline: Lessons from Processing 162TB of Weather Data"
 date: 2025-10-30 12:00:00
-description: Optimizing data pipelines for large-scale geospatial machine learning tasks
+description: Hard-won lessons from training a bias correction model on massive geospatial datasets
 tags: big-data machine-learning performance optimization data-pipelines
 categories: data-science machine-learning big-data
 ---
 
-> Hard-won lessons from training a bias correction model on massive geospatial datasets
+> Optimizing data pipelines for large-scale geospatial machine learning tasks
 
 ---
 
