@@ -17,7 +17,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-I am the CTO and co-founder of [SoranoAI](https://www.sorano.co), a startup that builds AI meteorologists. Our mission is to democratize access to high-quality, localized weather forecasts using state-of-the-art machine learning and big data technologies. At SoranoAI, I lead the development of scalable machine learning pipelines that process vast amounts of meteorological data to deliver accurate and timely weather predictions.
+I am the Lead Machine Learning & MLOps Architect at [Symbiose Management](https://www.symbiosemanagement.com/).  I help build scalable machine learning workflows and MLOps pipelines for various clients in insurance, finance and forest management. My work involves working with cross-functional teams to design, develop and deploy machine learning models that solve real-world problems.
 
 Previously,  I worked as a research scientist at [NASA IMPACT](https://impact.earthdata.nasa.gov/) project where I leveraged NASA earth data and machine learning to solve [remote sensing problems](https://www.earthdata.nasa.gov/learn/articles/esds-at-agu-2021). As part of the group’s outreach program I also co-organized a joint NASA/IEEE Geoscience and Remote Sensing Society (GRSS) challenge on applying AI to open water [flood extent detection](https://www.earthdata.nasa.gov/learn/articles/impact-flood-competition). The competition received 137 participants from 10 countries and over 400 submissions.
 
