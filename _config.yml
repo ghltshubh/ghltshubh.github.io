@@ -380,6 +380,17 @@ enable_progressbar: true # enables a horizontal progress bar linked to the verti
 # -----------------------------------------------------------------------------
 # Library versions
 # -----------------------------------------------------------------------------
+#
+# NOTE on major upgrades (do NOT bump these blindly):
+#   bootstrap (4.x), jquery (3.x), mdb (4.x), fontawesome (6.x), mathjax (3.x)
+# These are intentionally held at their current major versions. `mdb`
+# (Material Design for Bootstrap) 4.20.0 is hard-locked to Bootstrap 4 + the
+# jQuery 3 API, so Bootstrap 4->5 / jQuery 3->4 is a coupled theme migration
+# (drop jQuery, replace mdb, rewrite data-* attrs), not a version bump.
+# Upstream al-folio is still on these same majors. The real path to Bootstrap
+# 5 / jQuery 4 is rebasing onto a newer al-folio release, not editing here.
+# When bumping a CDN lib, recompute its SRI `integrity` hash from the exact
+# jsdelivr file or the browser will block the resource.
 
 academicons:
   version: "1.9.5"
