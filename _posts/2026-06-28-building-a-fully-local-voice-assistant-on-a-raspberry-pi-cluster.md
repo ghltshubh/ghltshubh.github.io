@@ -18,6 +18,7 @@ categories: machine-learning edge-computing self-hosting
 - [The Pipeline](#the-pipeline)
 - [What it does](#what-it-does)
 - [Choosing the pieces](#choosing-the-pieces)
+- [Benchmarks](#benchmarks)
 - [Latency Lessons](#latency-lessons)
   - [The LLM sets the floor](#the-llm-sets-the-floor)
   - [Memory-mapping over NFS is a trap](#memory-mapping-over-nfs-is-a-trap)
@@ -78,9 +79,48 @@ One design choice runs through all of it: the tools hand back finished sentences
 
 ## Choosing the pieces
 
-Nothing here was picked on reputation. Every stage was a bake-off on the actual Pis. I installed two candidates, measured them on the same inputs, kept the winner, and deleted the loser. faster-whisper against whisper.cpp for speech recognition. Qwen3-4B against smaller models for the brain. Piper against Kokoro for the voice. SmolVLM against Moondream for the camera. The numbers that settled each one are in the sections below.
+Nothing here was picked on reputation. Every stage was a bake-off on the actual Pis. I installed two candidates, measured them on the same inputs, kept the winner, and deleted the loser. faster-whisper against whisper.cpp for speech recognition. Qwen3-4B against smaller models for the brain. Piper against Kokoro for the voice. SmolVLM against Moondream for the camera. The numbers that settled each one are in the benchmarks below.
 
 The services themselves run as plain systemd processes, one per node, rather than as pods on the k3s cluster that the Pis also run. Plain processes were quicker to restart and far easier to debug when something hung. The cluster's other workloads were moved off the entry node so the voice pipeline has it to itself.
+
+## Benchmarks
+
+Everything ran on Raspberry Pi 4 boards (quad-core Cortex-A72, no `dotprod` or `i8mm`), so the absolute numbers are slow by design. The relative gaps are what decided each choice.
+
+**Language model** (node2, llama.cpp, four threads). Speed against tool-routing accuracy on a six-question test:
+
+| Model | Quant | Speed | Tool routing | Verdict |
+|-------|-------|-------|--------------|---------|
+| Qwen3-4B-Instruct-2507 | Q4_K_M | ~1.1 tok/s | 6/6 | kept |
+| Qwen3-4B-Instruct-2507 | Q4_0 | ~1.0 tok/s | — | dropped: no faster, lower quality |
+| Qwen2.5-3B-Instruct | Q4_K_M | — | 5/6 | dropped: one false tool call |
+| Qwen2.5-1.5B-Instruct | Q4_K_M | ~2.4 tok/s | 4/6 | dropped: false tool calls |
+
+The 1.5B was about 2.2 times faster and would have won on speed alone, but it invented `get_weather` calls for questions that had nothing to do with weather. Accuracy set the floor and speed was negotiated around it. (The dashes are comparisons I didn't separately log.)
+
+**Text-to-speech** (node3). Real-time factor, where below 1.0 means faster than playback:
+
+| Engine | Voice | RTF | Verdict |
+|--------|-------|-----|---------|
+| Piper | en_US-lessac-medium | ~0.4 | kept |
+| Kokoro | int8 | ~8 | dropped |
+
+Kokoro sounds better and spends about eight seconds of compute per second of audio to do it. Piper synthesizes faster than you can listen.
+
+**Speech recognition** (node1, faster-whisper). `tiny.en` with greedy decoding ran a query in 3.4 seconds, down from 4.8 with default beam search, at 100% on my test phrases. `base.en` is kept as a slower, more robust option for noisier rooms.
+
+**Vision** (node1). SmolVLM-256M described a single frame in about 24 seconds once I disabled image tiling, down from over three minutes; turning the tiling off cut the vision tokens roughly tenfold. A 256M model is about the practical ceiling on this hardware, and it was chosen over Moondream2.
+
+**End-to-end and cold start.** A tool query broke down like this:
+
+| Stage | Before | After | What changed |
+|-------|--------|-------|--------------|
+| ASR | 4.8s | 3.4s | `tiny.en`, greedy decoding |
+| LLM | 45.7s | 18.0s | skip the second LLM call |
+| TTS | ~1s | ~1s | stream sentences as they generate |
+| **Total** | **51.9s** | **21.3s** | |
+
+Two more that don't show up in steady state: with the model memory-mapped over NFS the first token took 64 seconds, and `--no-mmap` brought it to 8; and the first tool call after a restart was 167 seconds cold against about 20 once a startup warmup had primed the prompt prefix.
 
 ## Latency Lessons
 
@@ -90,7 +130,7 @@ Here is what each stage cost and how I got it down.
 
 The language model dominates everything else. The Pi 4's Cortex-A72 doesn't have the `dotprod` or `i8mm` instructions that quantized inference relies on, so a 4-bit 4B model runs at about 1.6 tokens per second. A two-sentence answer is fifteen to twenty seconds of generation no matter what else I optimize.
 
-The obvious move is to drop to a smaller model, and I benchmarked a few. Qwen3-4B Q4_K_M routed a six-question tool-use test correctly six times out of six. Qwen2.5-3B got five out of six and invented a tool call on the one it missed. Qwen2.5-1.5B ran more than twice as fast at 2.41 tok/s, which was tempting until I saw it score four out of six, fabricating `get_weather` calls for questions that had nothing to do with weather. A faster model that picks the wrong tool isn't a win, so I kept the 4B and deleted the rest. On this hardware the model that clears your accuracy bar is the latency floor, and the optimization work happens around it.
+The obvious move is to drop to a smaller model, and I benchmarked a few (the table above). The smaller ones were faster and wrong in the way that matters here: they fabricated tool calls, deciding to fetch the weather for questions that had nothing to do with weather. A faster model that picks the wrong tool buys nothing, so I kept the 4B. On this hardware the model that clears your accuracy bar is the latency floor, and the optimization work happens around it.
 
 ### Memory-mapping over NFS is a trap
 
