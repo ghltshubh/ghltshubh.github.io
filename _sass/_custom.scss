@@ -211,3 +211,15 @@ footer.sticky-bottom {
 
 
 }
+// Buy Me a Coffee inline-svg icon — match the other contact icons
+// (uses theme vars: default text color, theme green on hover; never the BMC yellow)
+.social .contact-icons a .bmc-icon {
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.15em;
+  fill: var(--global-text-color);
+  transition-property: all 0.2s ease-in-out;
+}
+.social .contact-icons a:hover .bmc-icon {
+  fill: var(--global-theme-color);
+}
