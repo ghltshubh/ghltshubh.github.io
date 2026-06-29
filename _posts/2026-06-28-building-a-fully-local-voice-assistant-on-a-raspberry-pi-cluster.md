@@ -16,22 +16,20 @@ categories: machine-learning edge-computing self-hosting
 - [The Goal](#the-goal)
 - [The Hardware](#the-hardware)
 - [The Pipeline](#the-pipeline)
+- [What it does](#what-it-does)
+- [Choosing the pieces](#choosing-the-pieces)
 - [Latency Lessons](#latency-lessons)
   - [The LLM sets the floor](#the-llm-sets-the-floor)
   - [Memory-mapping over NFS is a trap](#memory-mapping-over-nfs-is-a-trap)
   - [Piper instead of Kokoro](#piper-instead-of-kokoro)
   - [Cutting the round-trips](#cutting-the-round-trips)
   - [Warmup and the single slot](#warmup-and-the-single-slot)
+  - [Vision was the other slow path](#vision-was-the-other-slow-path)
 - [The Wake Word](#the-wake-word)
-  - [Porcupine went enterprise](#porcupine-went-enterprise)
-  - [Synthetic only: 0.12](#synthetic-only-012)
-  - [Recording the real voice: 0.94](#recording-the-real-voice-094)
-  - [Surviving the vacuum](#surviving-the-vacuum)
-  - [The "ok" problem](#the-ok-problem)
-  - [Where it got interesting](#where-it-got-interesting)
-  - [The fix that worked](#the-fix-that-worked)
-- [Why length wasn't enough](#why-length-wasnt-enough)
+  - [Teaching it my voice](#teaching-it-my-voice)
+  - [Teaching it to ignore "ok"](#teaching-it-to-ignore-ok)
 - [Smaller things that cost time](#smaller-things-that-cost-time)
+- [What's next](#whats-next)
 - [Where it landed](#where-it-landed)
 
 ---
@@ -70,9 +68,23 @@ mic -> [wake word] -> [ASR] -> [LLM + tools] -> [TTS] -> speaker
         node1          node1    node2            node3
 ```
 
-Every stage on that line ran into the same wall, which is latency on a CPU that has no fast path for the matrix math these models do. Here is what each stage cost and how I got it down.
+Every stage on that line ran into the same wall, which is latency on a CPU that has no fast path for the matrix math these models do.
+
+## What it does
+
+Once it's awake, it does the things you'd expect. It answers general questions straight from the language model, pulls live weather from a real API, tells the time, sets timers that announce themselves when they're up, and looks things up on Wikipedia. If I ask what it sees, a camera grabs one frame and a small vision model describes it. Follow-up questions stay in context for a few minutes, so "what about tomorrow" after a weather question works without me saying the wake word again.
+
+One design choice runs through all of it: the tools hand back finished sentences, not raw data. A weather lookup returns "It's 14 degrees and cloudy in Paris," ready to speak. That turned out to matter for speed, which is most of what the rest of this is about.
+
+## Choosing the pieces
+
+Nothing here was picked on reputation. Every stage was a bake-off on the actual Pis. I installed two candidates, measured them on the same inputs, kept the winner, and deleted the loser. faster-whisper against whisper.cpp for speech recognition. Qwen3-4B against smaller models for the brain. Piper against Kokoro for the voice. SmolVLM against Moondream for the camera. The numbers that settled each one are in the sections below.
+
+The services themselves run as plain systemd processes, one per node, rather than as pods on the k3s cluster that the Pis also run. Plain processes were quicker to restart and far easier to debug when something hung. The cluster's other workloads were moved off the entry node so the voice pipeline has it to itself.
 
 ## Latency Lessons
+
+Here is what each stage cost and how I got it down.
 
 ### The LLM sets the floor
 
@@ -106,79 +118,31 @@ Because of the streaming, it feels quicker than 21 seconds suggests; you hear it
 
 llama.cpp caches the prompt prefix, and my system prompt plus tool definitions are a large fixed prefix that's identical on every turn. Two settings take advantage of that. Running with a single parallel slot (`-np 1`) keeps that prefix resident between turns instead of evicting it for parallelism I don't need. And a throwaway request fired at startup pays the cold-prefix cost before anyone is waiting; without it, the first real question took 167 seconds, and with it the first question is about 22 like every other.
 
+### Vision was the other slow path
+
+The "what do you see" feature runs a small vision-language model, SmolVLM, on the same node as the wake word and speech recognition. The first version took over three minutes for a single image, which is no use to anyone. Most of that was the model slicing each image into tiles and running them separately; turning the slicing off brought it down to about 24 seconds per frame, with no real loss in the descriptions I get back for a "what's in front of me" question. There was also a version trap: the current major release of the image-processing library broke the model's resolution handling, so it's pinned a release back. The camera only wakes on demand. It opens, takes one frame, describes it, and lets go, so nothing in the house is streaming video.
+
 ---
 
 ## The Wake Word
 
-This is the part I thought would take an afternoon. It took a week, and it's where the actual lesson is.
+This is the part I thought would take an afternoon. It took a week, and it's where the real lesson was.
 
-### Porcupine went enterprise
+The easy way to make a custom wake word used to be Picovoice Porcupine, but that's enterprise-only now. The open option, OpenWakeWord, ships a few built-in words but not "ok computer," so I had to train one. The setup is simple on paper: generate positive examples of the phrase, mix them against a large pile of negative audio, and train a small classifier on audio embeddings. Every problem I hit came down to what was in those examples.
 
-The easy way to make a custom wake word used to be Picovoice Porcupine: type your phrase, download a model. That's enterprise-only now. The open option is OpenWakeWord, which ships a few built-in words like `hey_jarvis` and `alexa` but not "ok computer," which is what I wanted, so I trained one.
+### Teaching it my voice
 
-The recipe is clean on paper. Generate positive examples of the phrase, mix them against a large pile of negative audio (a precomputed 2,000-hour feature set called ACAV100M), and train a small classifier on the embeddings. The model never touches raw audio; a frozen melspectrogram-to-embedding network turns roughly two seconds of audio into a fixed `(16, 96)` tensor, and a small network scores that tensor. That fixed-size detail comes back later.
+The textbook approach synthesizes the positives with TTS. I generated about 2,700 takes of "ok computer" from a 904-speaker voice model, trained, and got 0.999 on the held-out data. Then I said "ok computer" into a real microphone and it scored 0.12. Synthetic voices in a clean pipeline don't sound like a person in a room, so the model had mostly learned to recognize TTS. Recording 35 takes of my own voice and mixing them in took it to 0.94.
 
-### Synthetic only: 0.12
+It still missed when the vacuum or air purifier was running, because the noise pulled my wake word under the threshold and lowering the threshold brought the false fires back. The fix was to record a couple of minutes of that background noise and use it both ways: mixed into my clean takes to make "wake word in noise" examples, and as negatives so the noise alone never triggers. After that it caught me through the vacuum while the vacuum itself scored zero.
 
-The textbook approach synthesizes the positives with TTS. I used a 904-speaker LibriTTS voice to generate about 2,700 takes of "ok computer" across every speaker and three speeds, trained, and got 0.999 on the held-out features. Then I said "ok computer" into a real microphone and it scored 0.12.
+### Teaching it to ignore "ok"
 
-Synthetic voices in a clean digital pipeline don't sound like a person in a room, so the model had mostly learned to recognize TTS. A strong score on synthetic data said nothing about how it would do on real audio. The same gap returned later in a form that was harder to see.
+The last problem was that it fired on "ok" by itself, which makes sense since "ok computer" starts with "ok." The standard fix is to record yourself saying near-misses ("ok," "okay," "ok cool," "computer" alone) and add them as negatives. I did that, retrained, and every recorded "ok" scored 0.00. Then I said "ok" out loud and it fired at 0.86.
 
-### Recording the real voice: 0.94
+The recorded "ok" scoring zero while the live "ok" fired took a while to make sense of. The model hadn't learned that "ok" isn't the wake word. It had memorized the few dozen specific recordings I gave it, and my live "ok," in a slightly different tone, was a waveform it had never seen. The deeper reason is that a network learns the cheapest feature that separates its training set and then stops. My negatives were random audio that never contained "ok," so "is there an 'ok' sound" was enough to tell positives from negatives, and the model never had a reason to check for "computer" at all. It was the same trap as the synthetic version, where a perfect held-out score hid a model that had learned the wrong thing.
 
-I recorded about 35 real takes of myself saying the phrase through the actual microphone, augmented them with gain, pitch, time-stretch and noise into roughly a thousand positives, mixed those evenly with the synthetic set, and retrained. That got 0.94 on my real voice, and for a little while I thought I was done.
-
-### Surviving the vacuum
-
-Then I tested it with the air purifier and a vacuum running, since that's a normal state for the house, and the clean-trained model missed. The background noise pulled my wake word under the threshold, and dropping the threshold brought the false fires back.
-
-The fix was to record about two minutes of my actual background noise and use it two ways in training: mixed into my clean takes at SNRs from -2 to 12 dB to make "wake word in noise" positives, and sliced into negatives so the noise on its own never triggers. That gave 0.96 clean, 0.86 in noise, and 0.00 on noise alone, which is a wide enough margin that a 0.5 threshold catches me through the vacuum while the vacuum scores zero. With aggressive voice-activity detection so steady noise doesn't read as an endless sentence, it held up well.
-
-### The "ok" problem
-
-One thing remained: it fired on "ok" by itself. Say "ok" to someone else in the room and the assistant woke up, which makes sense given that "ok computer" starts with "ok" and that's all the model had learned to look for.
-
-The standard answer is adversarial negatives. You record yourself saying things that are close to the phrase but aren't it, like "ok," "okay," "ok cool," "ok so," and "computer" alone, and add them as a dedicated negative class. I recorded about 24 of those, clean and noise-augmented, retrained, and checked:
-
-```
-"ok computer" : 0.96
-"ok" / "okay" : 0.00
-```
-
-Zero on every recorded "ok" I had. I shipped it.
-
-### Where it got interesting
-
-Then I said "ok" out loud and it scored 0.82. Again, 0.95. It fired.
-
-This was confusing, because the model scored my recorded "ok" at 0.00 and synthetic "ok" at 0.001. I checked the deployed model's checksum against the trained file in case I'd shipped a stale model, and they matched. The model genuinely rejected every "ok" I could play at it and genuinely fired on every "ok" I could say at it.
-
-It was the synthetic problem again in a different form. A 0.00 on recorded negatives doesn't mean the model won't fire on them live. The 24 adversarial takes were too few and too similar, so the model hadn't learned that "ok" isn't the wake word; it had memorized those specific recordings. My live "ok," in a slightly different tone at a slightly different moment, was a waveform it hadn't seen, and it went straight through.
-
-### The fix that worked
-
-The fix had two parts. The first was recording more "ok" and "okay" takes, but varied on purpose: rising like a question, falling and final, drawn out, clipped, loud, quiet, at different distances from the mic. The 56 takes I'd had were all roughly the same, and that uniformity was the problem.
-
-The second part is the one that mattered. I went back to the 904-speaker LibriTTS voice and synthesized about 1,800 clips of "ok," "okay," "ok cool," "ok so," and "computer," using the same speakers that say "ok computer" in the positive set. Now the training data has the same voice saying both "ok computer" and "ok," and the only thing separating the two classes is the word "computer." There's no shorter description of the difference for the model to latch onto.
-
-Fused together (real positives, synthetic positives, real adversarials, synthetic adversarials, the ACAV negatives, and the noise) and retrained:
-
-```
-"ok computer" : 0.889  (91% of takes fire)
-"ok" / "okay" : 0.000
-```
-
-The offline numbers resemble the earlier version's, which is exactly why I'm treating the live microphone as the real test this time rather than the held-out score. The difference is in what the model was forced to learn, and that's something the offline number can't show you on its own.
-
-## Why length wasn't enough
-
-The obvious question, which was mine too, is that "ok" is shorter than "ok computer," so why doesn't the model just use length.
-
-The information is there. The fixed `(16, 96)` window has speech energy across more frames for "ok computer" than for "ok," and the model could use that. It didn't, because a network learns the cheapest feature that separates its training set and then stops. In the earlier version the negatives were random audio that essentially never contains the sound "ok," so a single cue, the presence of an "ok" onset, separated every positive from the noise and drove the training loss to zero. The "computer" tail was useful information that the model had no reason to encode, because nothing in the data ever penalized firing on "ok" alone. What it actually learned was "ok is present," not "ok computer is present."
-
-Matched-speaker contrast removes that shortcut. Once "ok" shows up in both a positive and a negative, the onset cue no longer separates the classes, and the only way left to drive the loss down is to encode the rest of the window, which is effectively whether the phrase finishes. The length signal gets learned when the data makes it necessary and not before.
-
-It also explains the gap between live and recorded "ok." In a noisy room the silence after "ok" fills with vacuum and room energy in roughly the spot where "computer" would be, so a detector keyed on "ok plus some energy after it" fires. Forcing the model to require the actual "computer" pattern is the same fix as before.
+So I made the shortcut stop working. I synthesized about 1,800 clips of "ok," "okay," and other near-misses from the same 904 speakers that say "ok computer" in the positive set, so the same voice now appears in both classes and the only thing separating them is the word "computer." Retrained with a batch of my own varied "ok" recordings added, "ok computer" scores 0.89 and live "ok" dropped from the 0.82–0.95 range down to 0.36–0.44, well under the threshold. The whole wake-word detour was really about the training data, never the model.
 
 ## Smaller things that cost time
 
@@ -191,6 +155,16 @@ The WebSocket carrying the microphone audio dropped about every eleven seconds f
 The latency chimes fed back into the wake word at one point. I'd added short "listening" and "got it" tones to cover the gap while the model thinks, and an early model woke itself on its own chime. They only became safe once I confirmed the model scores the chime tones at 0.00.
 
 Voice-activity detection had to run at its most aggressive setting, or steady background noise reads as one continuous sentence and the recording never ends.
+
+## What's next
+
+A few things I want it to do that it can't yet.
+
+The first is messaging and calls. I want to say "text Alex that I'm running late," or have it place a call, across the chat apps I actually use, without any of my account credentials sitting on the Pi. The assistant stays thin and hands the action off to something that holds the keys, so it still never sees them itself. Same rule as the rest of the build.
+
+The second is music. Ask for a song and have it play from my own library first, fall back to the wider web when it's not something I own, and respond to the obvious controls like pause, skip, and volume. Music and speech share one speaker, so it should duck while it talks and pick back up after.
+
+The rest is the unglamorous reliability work: timeouts and sensible fallbacks on the external lookups, a plain "I don't know" when there's nothing to say instead of a confident guess, and the supervision details that let it come back on its own after a node reboots.
 
 ## Where it landed
 
