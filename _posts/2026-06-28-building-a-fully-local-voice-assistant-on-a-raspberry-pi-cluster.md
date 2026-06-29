@@ -124,43 +124,41 @@ Two more that don't show up in steady state: with the model memory-mapped over N
 
 ## Latency Lessons
 
-Here is what each stage cost and how I got it down.
+The numbers are in the tables above; this is the reasoning behind them.
 
 ### The LLM sets the floor
 
-The language model dominates everything else. The Pi 4's Cortex-A72 doesn't have the `dotprod` or `i8mm` instructions that quantized inference relies on, so a 4-bit 4B model runs at about 1.6 tokens per second. A two-sentence answer is fifteen to twenty seconds of generation no matter what else I optimize.
+The language model dominates everything else. The Pi 4's Cortex-A72 doesn't have the `dotprod` or `i8mm` instructions that quantized inference relies on, so a 4-bit 4B model runs at roughly a token a second, and a two-sentence answer is fifteen to twenty seconds of generation no matter what else I optimize.
 
-The obvious move is to drop to a smaller model, and I benchmarked a few (the table above). The smaller ones were faster and wrong in the way that matters here: they fabricated tool calls, deciding to fetch the weather for questions that had nothing to do with weather. A faster model that picks the wrong tool buys nothing, so I kept the 4B. On this hardware the model that clears your accuracy bar is the latency floor, and the optimization work happens around it.
+The obvious move is to drop to a smaller model. The smaller ones were faster and wrong in the way that matters here: they fabricated tool calls, deciding to fetch the weather for questions that had nothing to do with weather. A faster model that picks the wrong tool buys nothing, so I kept the 4B. On this hardware the model that clears your accuracy bar is the latency floor, and the optimization work happens around it.
 
 ### Memory-mapping over NFS is a trap
 
-This one cost an afternoon. The weights sit on the NFS share, and llama.cpp memory-maps weights by default. That's fine on a local SSD and bad over a network, because the kernel then page-faults weight pages across the network on demand during inference. First-token latency was around 64 seconds.
+This one cost an afternoon. The weights sit on the NFS share, and llama.cpp memory-maps weights by default. That's fine on a local SSD and bad over a network, because the kernel then page-faults weight pages across the network on demand during inference. The first token took the better part of a minute.
 
 ```bash
 llama-server -m qwen3-4b-q4_k_m.gguf --no-mmap -fa on -np 1 ...
 ```
 
-`--no-mmap` loads the whole model into RAM at startup instead. We have 8GB and the model is about 2.5GB, so it fits, and after one slow load there are no more network faults. That alone took the cold first token from 64 seconds to 8. Memory-mapping is a local-disk optimization, and it quietly becomes a cost the moment the disk is a gigabit hop away.
+`--no-mmap` loads the whole model into RAM at startup instead. We have 8GB and the model is about 2.5GB, so it fits, and after one slow load there are no more network faults. Memory-mapping is a local-disk optimization, and it quietly becomes a cost the moment the disk is a gigabit hop away.
 
 ### Piper instead of Kokoro
 
-I started with Kokoro for TTS because it sounds good. On a Pi 4 its real-time factor is around 8, meaning eight seconds of compute per second of audio, which is unusable. Piper, with the `en_US-lessac-medium` voice, has a real-time factor around 0.4, so it synthesizes faster than playback. It sounds a little less natural than Kokoro, and that was an easy trade to make given the alternative was waiting longer for the sentence to be spoken than it took to generate.
+I started with Kokoro for TTS because it sounds good. On a Pi 4 it runs many times slower than real time, which makes it unusable here. Piper, with the `en_US-lessac-medium` voice, runs faster than playback. It sounds a little less natural, and that was an easy trade given the alternative was waiting longer for a sentence to be spoken than it took to generate.
 
 ### Cutting the round-trips
 
-The first working version answered a tool query, "what's the weather in Paris," in 52 seconds. That involved two LLM passes, one to decide which tool to call and one to turn the tool's result into a sentence, plus synthesizing the entire reply before any of it played.
+The first working version answered a tool query with two LLM passes, one to decide which tool to call and one to turn the result into a sentence, plus synthesizing the whole reply before any of it played. That was close to a minute for "what's the weather in Paris."
 
-Three changes brought it to 21 seconds. The biggest was removing the second LLM pass: tools now return speech-ready strings, so `get_weather` hands back "It's 14 degrees and cloudy in Paris" directly instead of JSON for the model to rephrase. That deletes a full generation pass. The second was streaming the TTS, speaking each sentence as soon as the model finishes it rather than waiting for the whole answer, so the first words come out while the model is still working on the rest. The third was using faster-whisper's `tiny.en` with greedy decoding for ASR, which dropped recognition from about 5 seconds to 3.4 with no accuracy loss on my test phrases.
-
-Because of the streaming, it feels quicker than 21 seconds suggests; you hear it start talking around the eight-second mark.
+Three changes cut it by more than half. The biggest was removing the second LLM pass: tools now return speech-ready strings, so `get_weather` hands back "It's 14 degrees and cloudy in Paris" directly instead of JSON for the model to rephrase. That deletes a full generation pass. The second was streaming the TTS, speaking each sentence as soon as the model finishes it, so the first words come out while the model is still working on the rest. The third was greedy decoding for speech recognition. Between them, the assistant starts talking a few seconds in, which makes it feel quicker than the total time.
 
 ### Warmup and the single slot
 
-llama.cpp caches the prompt prefix, and my system prompt plus tool definitions are a large fixed prefix that's identical on every turn. Two settings take advantage of that. Running with a single parallel slot (`-np 1`) keeps that prefix resident between turns instead of evicting it for parallelism I don't need. And a throwaway request fired at startup pays the cold-prefix cost before anyone is waiting; without it, the first real question took 167 seconds, and with it the first question is about 22 like every other.
+llama.cpp caches the prompt prefix, and my system prompt plus tool definitions are a large fixed prefix that's identical on every turn. Two settings take advantage of that. Running with a single parallel slot (`-np 1`) keeps the prefix resident between turns instead of evicting it for parallelism I don't need. And a throwaway request fired at startup pays the cold-prefix cost before anyone is waiting, so the first real question is no slower than any other instead of taking minutes.
 
 ### Vision was the other slow path
 
-The "what do you see" feature runs a small vision-language model, SmolVLM, on the same node as the wake word and speech recognition. The first version took over three minutes for a single image, which is no use to anyone. Most of that was the model slicing each image into tiles and running them separately; turning the slicing off brought it down to about 24 seconds per frame, with no real loss in the descriptions I get back for a "what's in front of me" question. There was also a version trap: the current major release of the image-processing library broke the model's resolution handling, so it's pinned a release back. The camera only wakes on demand. It opens, takes one frame, describes it, and lets go, so nothing in the house is streaming video.
+The "what do you see" feature runs a small vision-language model, SmolVLM, on the same node as the wake word and speech recognition. Out of the box a single image took minutes, which is useless for a spoken question. Most of that was the model slicing each image into tiles and running them separately; turning the slicing off cut it by roughly tenfold, into usable territory. There was also a version trap: the current major release of the image-processing library broke the model's resolution handling, so it's pinned a release back. The camera only wakes on demand. It opens, takes one frame, describes it, and lets go, so nothing in the house is streaming video.
 
 ---
 
