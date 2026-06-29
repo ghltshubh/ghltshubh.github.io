@@ -7,9 +7,9 @@ importance: 1
 category: hardware
 ---
 
-I wanted an Alexa without Amazon. This is one: the whole assistant — wake word, speech
-recognition, a 4-billion-parameter language model, and text-to-speech — runs on the
-four-node Raspberry Pi 4 cluster, with no cloud and no audio leaving the house.
+I wanted an Alexa without Amazon. This is one: the whole assistant (wake word, speech
+recognition, a 4-billion-parameter language model, and text-to-speech) runs on three
+Raspberry Pi 4s, with a fourth handling storage. No cloud, no audio leaving the house.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">

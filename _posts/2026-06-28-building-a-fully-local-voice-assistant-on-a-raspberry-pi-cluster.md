@@ -2,12 +2,12 @@
 layout: post
 title:  "Building a Fully-Local Voice Assistant on a Raspberry Pi Cluster"
 date: 2026-06-28 12:00:00
-description: How I built an Alexa-equivalent that runs entirely on four Raspberry Pis, and what a wake word that kept firing on "ok" taught me about training data
+description: How I built an Alexa-equivalent that runs on three Raspberry Pis (a fourth handles storage), and what a wake word that kept firing on "ok" taught me about training data
 tags: raspberry-pi voice-assistant machine-learning edge-ai self-hosting wake-word llm
 categories: machine-learning edge-computing self-hosting
 ---
 
-> An Alexa-equivalent running entirely on a 4-node Raspberry Pi cluster, with no cloud and no audio leaving the house. The wake word took longer than everything else combined.
+> An Alexa-equivalent running on a small Raspberry Pi cluster: three boards do the assistant, a fourth handles storage, and no audio leaves the house. The wake word took longer than everything else combined.
 
 ---
 
@@ -39,7 +39,7 @@ categories: machine-learning edge-computing self-hosting
 
 I wanted something that worked like Alexa but ran on hardware I controlled. Answer questions, set timers, give the weather, describe what a camera is pointed at. The one firm requirement was that all of it stay local: no audio sent to a data center, no transcripts sitting on anyone else's server, no microphone that's "always listening" in the sense that really means always uploading.
 
-What I had to run it on was a 4-node Raspberry Pi 4 cluster, 8GB per node, already running k3s for other things. Four Cortex-A72 boards, no GPU, no neural accelerator. That constraint is the whole story. Wiring speech-to-text to an LLM to text-to-speech is straightforward; doing it fast enough to be tolerable on four Pis is not, and getting a custom wake word to recognize one specific voice while a vacuum runs in the background turned out to be the part I underestimated by about a week.
+What I had to run it on was a four-board Raspberry Pi 4 cluster (8GB each) that was already running k3s for other things. Three of the boards run the assistant; the fourth handles storage and the cluster control plane. Cortex-A72 chips, no GPU, no neural accelerator. That constraint is the whole story. Wiring speech-to-text to an LLM to text-to-speech is straightforward; doing it fast enough to be tolerable on three Pis is not, and getting a custom wake word to recognize one specific voice while a vacuum runs in the background turned out to be the part I underestimated by about a week.
 
 ## The Hardware
 
@@ -206,7 +206,7 @@ The rest is the unglamorous reliability work: timeouts and sensible fallbacks on
 
 ## Where it landed
 
-A fully-local voice assistant on four Raspberry Pis works. It answers questions in about 21 seconds, sets timers, pulls live weather from a real API, describes what the camera sees, and sends no audio anywhere. Most of the engineering was trades made to buy back usability from hardware that didn't have much to spare: Piper over Kokoro, the 4B over the 1.5B, `--no-mmap`, dropping the second LLM call.
+A fully-local voice assistant on three Raspberry Pis works, with a fourth handling storage. It answers questions in about 21 seconds, sets timers, pulls live weather from a real API, describes what the camera sees, and sends no audio anywhere. Most of the engineering was trades made to buy back usability from hardware that didn't have much to spare: Piper over Kokoro, the 4B over the 1.5B, `--no-mmap`, dropping the second LLM call.
 
 The part I'll remember is the wake word, and it's a point about data rather than wake words specifically. The model kept learning the easiest thing that fit the training set instead of the thing I meant. First it learned to recognize TTS instead of speech. Later it learned to detect the "ok" onset instead of the whole phrase. Both versions scored well on held-out data and both failed the moment they met a real microphone, because the held-out data had the same blind spot. The only thing that ever fixed it was changing the data so the easy answer stopped working: recording the real voice, then the real noise, then the matched-speaker contrast. None of that depended on the hardware, which is the one part of this that would have been the same on a GPU.
 
