@@ -7,12 +7,14 @@
             {%- if site.whatsapp_number -%}
             <a href="https://wa.me/{{ site.whatsapp_number }}" title="whatsapp"><i class="fab fa-whatsapp"></i></a>
             {% endif %}
+            {% comment %} hidden from social row (builder set) — IDs kept in _config.yml
             {%- if site.orcid_id -%}
             <a href="https://orcid.org/{{ site.orcid_id }}" title="ORCID"><i class="ai ai-orcid"></i></a>
             {% endif %}
             {%- if site.scholar_userid -%}
             <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
             {% endif %}
+            {% endcomment %}
             {%- if site.semanticscholar_id -%}
             <a href="https://www.semanticscholar.org/author/{{ site.semanticscholar_id }}" title="Semantic Scholar"><i class="ai ai-semantic-scholar"></i></a>
             {% endif %}
@@ -97,9 +99,11 @@
             {%- if site.facebook_id -%}
             <a href="https://facebook.com/{{ site.facebook_id }}" title="Facebook"><i class="fab fa-facebook"></i></a>
             {% endif %}
+            {% comment %} hidden from social row (builder set) — id kept in _config.yml
             {%- if site.youtube_id -%}
             <a href="https://youtube.com/@{{ site.youtube_id }}" title="YouTube"><i class="fab fa-youtube"></i></a>
             {% endif %}
+            {% endcomment %}
             {%- if site.discord_id -%}
             <a href="https://discord.com/users/{{ site.discord_id }}" title="Discord"><i class="fab fa-discord"></i></a>
             {% endif %}
