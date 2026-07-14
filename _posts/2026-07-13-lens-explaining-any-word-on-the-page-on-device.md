@@ -2,18 +2,19 @@
 layout: post
 title:  "Lens: Explaining Any Word on the Page, On-Device"
 date: 2026-07-13 12:00:00
-description: A Chrome extension that explains the text you select using Chrome's built-in Gemini Nano, why it's built as three isolated pieces, and what the on-device model's latency forced the design to become
+description: An ML engineer with no web-dev background ships a Chrome extension in a weekend with Claude — what it does, what I learned about the browser platform along the way, and what the on-device model's latency forced the design to become
 tags: chrome-extension on-device-ai gemini-nano manifest-v3 typescript llm
 categories: web on-device-ai machine-learning
 ---
 
-> Select a word or phrase on any page and get a short, context-aware explanation — who, what, when, where, why, how — from a model that runs on your own machine. Nothing leaves the device. Most of the interesting decisions came from the model being slow, not from the AI itself.
+> Select a word or phrase on any page and get a short, context-aware explanation — who, what, when, where, why, how — from a model that runs on your own machine. Nothing leaves the device. I build ML systems and had never touched browser-extension development — I didn't know the vocabulary, let alone the platform. I paired with Claude and shipped it over a weekend; this is what I learned building it.
 
 ---
 
 ## Table of Contents
 
 - [The idea](#the-idea)
+- [Building outside my domain](#building-outside-my-domain)
 - [Three isolated pieces](#three-isolated-pieces)
 - [The output contract comes first](#the-output-contract-comes-first)
 - [One seam for two backends](#one-seam-for-two-backends)
@@ -32,9 +33,15 @@ Chrome 148 ships a language model in the browser — Gemini Nano, reachable thro
 
 The privacy story is the whole point — your reading never leaves the machine by default — but the on-device constraint is also what shaped every technical decision. Wiring a selection to a model to a card is easy. Doing it on a small model that is sometimes fast and sometimes very slow is where the design comes from.
 
+## Building outside my domain
+
+I should be upfront about where I'm standing. I work on ML and MLOps. I'd never built anything for the browser, and when I started I couldn't have told you what a service worker was, or a content script, or "Manifest V3" — the terms in this post are ones I picked up over the weekend, mostly by asking Claude "why doesn't this work" and reading the answer. I brought the systems instincts — how to structure it, where the latency would be, what to measure — and it filled in the entire web-platform layer I was missing.
+
+The ramp-up that normally gates a project like this — days of reading docs and getting the boilerplate wrong before you write anything real — was close to zero. That's the part I keep coming back to: the domain you happen to know is no longer the thing that decides what you can make. So the rest of this is written the way I actually found it — the surprises, in the order they surprised me — not as a tour from someone who already knew the platform.
+
 ## Three isolated pieces
 
-A Manifest V3 extension is naturally split into contexts that can't share memory, and Lens leans into that instead of fighting it.
+The first surprise was that a browser extension isn't one program. It's a few separate pieces, each running in its own sandbox, that can't share memory or call each other directly. (I learned this arrangement is what "Manifest V3" refers to.) That looked like a hassle at first; it turned out to be a clean way to organize the thing.
 
 ```
 select text
@@ -45,11 +52,11 @@ select text
   runs on the page                         one place, isolated
 ```
 
-The **content script** is the only part that touches the page. It turns a selection into a capture — the term plus its sentence and paragraph — and renders the result in a Shadow DOM card so page CSS can't bleed in. It never talks to the model.
+The **content script** is the piece that's allowed to touch the actual web page. It turns your selection into a capture — the term plus its sentence and paragraph — and draws the result in a little card. That card lives in a *Shadow DOM*, which I came to understand as an isolated corner of the page where the site's own styling can't reach in and wreck it. The content script never talks to the model.
 
-The **service worker** is the only part that talks to the model. Keeping the LLM in exactly one place means the content script stays light, the model session is shared, and swapping the backend touches nothing on the page.
+The **service worker** is a background script Chrome starts when it's needed, and it's the only piece that talks to the model. Keeping the model in exactly one place is what lets the content script stay light and lets me swap the model backend without touching anything on the page.
 
-They talk over typed messages. Explanation runs over a long-lived `Port` rather than a one-shot message, specifically so the worker can push a partial result before the full one — more on that below.
+The two pieces can't share memory, so they pass typed messages back and forth. For an explanation I used a *Port* — a connection that stays open — rather than a single request-and-reply, specifically so the worker can send a partial answer first and the full one after. That detail matters later.
 
 ## The output contract comes first
 
@@ -98,7 +105,9 @@ Two things stand out. Startup is bimodal — a warm session answers in well unde
 
 ### Keep-warm, because the worker keeps dying
 
-MV3 service workers are killed after ~30 seconds idle, and the model session dies with them — so the next lookup pays the cold tax again. "Always warm" isn't a thing you can just ask for. So Lens has a **research mode**: a toggle that, while on, holds a keep-alive `Port` open from the page. An open port keeps the worker alive, which keeps the session warm, which turns a 16-second cold start into a sub-second lookup. When it's off, the model is released and the extension gets out of the way.
+This is the thing that tripped me up most, and it took me a while to even realize it was happening. That background service worker isn't always running — Chrome shuts it down after about 30 seconds of inactivity, and the model session dies with it. So the next lookup pays the full 16-second cold start all over again. I couldn't find a way to just tell it to stay alive.
+
+The workaround I landed on is a **research mode**: a toggle that, while it's on, keeps that open connection (the Port) alive from the page. As long as a connection is open, Chrome keeps the worker alive, which keeps the model session warm, which turns that 16-second cold start into a sub-second lookup. Flip it off and the model is released and the extension gets out of the way. It felt like a hack when I found it; as far as I can tell, it's the accepted way to do this.
 
 ### Stream the lead line
 
@@ -133,7 +142,9 @@ A confident answer never pays for the paragraph, so a large one can't slow down 
 
 Lens is [live on the Chrome Web Store](https://chromewebstore.google.com/detail/lens-%E2%80%94-5w1h-explainer/jieilmnnihphmgkeeppfmmacabofdlai). Select text, get a context-aware explanation, entirely on your device by default, with an opt-in bring-your-own-key cloud mode for when you want a bigger model.
 
-The AI part was the easy part — a constrained prompt against a built-in model. The engineering was almost all a response to one small model being slow and one platform tearing down its own workers: keep the session warm on purpose, stream the first useful token, and don't send context you don't need. None of those are AI problems. They're the same latency-and-lifecycle problems you get anywhere the compute is scarce and local, which is increasingly where the interesting models are going to run.
+The AI feature itself was the easy part — a constrained prompt against a built-in model. Almost all the work was reacting to one small model being slow and to a background script that keeps shutting itself off: keep the session warm on purpose, show the first useful token as soon as it's ready, and don't send context you don't need. Those are latency-and-lifecycle problems — the kind I actually have instincts for. The web-platform specifics I didn't have — the extension model, the isolation between pieces, the APIs — were the part Claude carried.
+
+That split is the whole point for me. The general engineering was mine to reason about; the domain knowledge I was missing was one question away; and the gap between the two, which used to mean weeks of ramp-up before I could ship anything, was a weekend. I don't think that's specific to me or to this project. If you can think clearly about a problem, the stack you happen not to know is no longer the wall it used to be.
 
 ## Sources
 
@@ -143,4 +154,4 @@ The AI part was the easy part — a constrained prompt against a built-in model.
 
 ---
 
-*If you're building on the browser's built-in models, or fighting MV3's worker lifecycle, I'd be glad to compare notes.*
+*If you're an ML or data person eyeing a build outside your usual stack — or you've wrestled with the same browser-extension quirks I did — I'd be glad to compare notes.*
