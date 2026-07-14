@@ -31,6 +31,8 @@ categories: web on-device-ai machine-learning
 
 Chrome 148 ships a language model in the browser — Gemini Nano, reachable through the Prompt API, running locally with no network call. [Lens](https://chromewebstore.google.com/detail/lens-%E2%80%94-5w1h-explainer/jieilmnnihphmgkeeppfmmacabofdlai) is a small extension built on it: you select text on a page, and a tooltip-sized card explains it in context. A concept gets *What / How / Why*; a person gets *Who*. It shows only the dimensions that actually apply, never six boxes of filler.
 
+{% include figure.html path="assets/img/lens-hero.png" class="img-fluid rounded z-depth-1" zoomable=true alt="A web article with the phrase cellular respiration highlighted; a dark card floats beneath it with a one-line definition plus How and Why rows." caption="Select text, get a short context-aware explanation — who, what, when, where, why, how — from a model running on your own machine." %}
+
 The privacy story is the whole point — your reading never leaves the machine by default — but the on-device constraint is also what shaped every technical decision. Wiring a selection to a model to a card is easy. Doing it on a small model that is sometimes fast and sometimes very slow is where the design comes from.
 
 ## Building outside my domain
@@ -57,6 +59,8 @@ The **content script** is the piece that's allowed to touch the actual web page.
 The **service worker** is a background script Chrome starts when it's needed, and it's the only piece that talks to the model. Keeping the model in exactly one place is what lets the content script stay light and lets me swap the model backend without touching anything on the page.
 
 The two pieces can't share memory, so they pass typed messages back and forth. For an explanation I used a *Port* — a connection that stays open — rather than a single request-and-reply, specifically so the worker can send a partial answer first and the full one after. That detail matters later.
+
+{% include figure.html path="assets/img/lens-how-it-works.png" class="img-fluid rounded z-depth-1" zoomable=true alt="Three numbered cards: select text, get the answer showing the explanation card, and you're in control showing a research-mode toggle and a keyboard shortcut." caption="The whole interaction: select, read, and a toggle that keeps the on-device model warm." %}
 
 ## The output contract comes first
 
@@ -141,6 +145,8 @@ A confident answer never pays for the paragraph, so a large one can't slow down 
 ## Where it landed
 
 Lens is [live on the Chrome Web Store](https://chromewebstore.google.com/detail/lens-%E2%80%94-5w1h-explainer/jieilmnnihphmgkeeppfmmacabofdlai). Select text, get a context-aware explanation, entirely on your device by default, with an opt-in bring-your-own-key cloud mode for when you want a bigger model.
+
+{% include figure.html path="assets/img/lens-private.png" class="img-fluid rounded z-depth-1" zoomable=true alt="A promo graphic reading Private by design, On your device, with three points: no network calls, instant and local, no account." caption="The default: everything on-device, nothing leaving the machine." %}
 
 The AI feature itself was the easy part — a constrained prompt against a built-in model. Almost all the work was reacting to one small model being slow and to a background script that keeps shutting itself off: keep the session warm on purpose, show the first useful token as soon as it's ready, and don't send context you don't need. Those are latency-and-lifecycle problems — the kind I actually have instincts for. The web-platform specifics I didn't have — the extension model, the isolation between pieces, the APIs — were the part Claude carried.
 
