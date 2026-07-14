@@ -22,6 +22,7 @@ categories: web on-device-ai machine-learning
   - [Stream the lead line](#stream-the-lead-line)
   - [Only pay for context when it's needed](#only-pay-for-context-when-its-needed)
 - [Where it landed](#where-it-landed)
+- [Sources](#sources)
 
 ---
 
@@ -104,10 +105,10 @@ MV3 service workers are killed after ~30 seconds idle, and the model session die
 At ~30 tok/s, a full multi-dimension card is a few seconds of decode — long enough to feel like a hang. But the *lead* answer finishes first. So the worker streams the response, pulls the lead out of the partial JSON the moment its string closes, and pushes it to the card over the port before the rest is done:
 
 ```
-worker:  … "answers":{"what":"A finite step-by-step procedure…"   ← lead complete here
-              │
-              ▼  EXPLAIN_PARTIAL
-card:    shows the lead, pulsing, while the rest generates
+worker streams the JSON token by token
+   │
+   ▼  (the "what" value closes here)
+send EXPLAIN_PARTIAL → card shows the lead, pulsing, while the rest finishes
 ```
 
 Total time is unchanged; the *wait* mostly disappears.
@@ -119,10 +120,11 @@ Prefill scales with input, so the paragraph of context Lens sends for disambigua
 ```
 select text
    │
-   ├─ pass 1:  sentence only ──▶ model ──▶ confidence?
-   │                                          │
-   │                          high / medium ──┴──▶ done  (the common, fast path)
-   │                          low ────────────────▶ pass 2: + paragraph ──▶ model ──▶ done
+   ▼
+pass 1 — sentence only → model → confidence
+   │
+   ├─ high / medium → done  (common, fast path)
+   └─ low → pass 2: add the paragraph → model → done
 ```
 
 A confident answer never pays for the paragraph, so a large one can't slow down a normal lookup. Only genuine ambiguity — the model saying `confidence: "low"` about itself — triggers the second, context-heavy pass. Each pass runs on a throwaway `clone()` of the base session, which also stops lookups from accumulating conversation history in one long-lived session.
@@ -132,6 +134,12 @@ A confident answer never pays for the paragraph, so a large one can't slow down 
 Lens is [live on the Chrome Web Store](https://chromewebstore.google.com/detail/lens-%E2%80%94-5w1h-explainer/jieilmnnihphmgkeeppfmmacabofdlai). Select text, get a context-aware explanation, entirely on your device by default, with an opt-in bring-your-own-key cloud mode for when you want a bigger model.
 
 The AI part was the easy part — a constrained prompt against a built-in model. The engineering was almost all a response to one small model being slow and one platform tearing down its own workers: keep the session warm on purpose, stream the first useful token, and don't send context you don't need. None of those are AI problems. They're the same latency-and-lifecycle problems you get anywhere the compute is scarce and local, which is increasingly where the interesting models are going to run.
+
+## Sources
+
+- [`simple-chromium-ai`](https://github.com/kstonekuan/simple-chromium-ai) — the small TypeScript wrapper Lens uses to reach Chrome's built-in Prompt API (`LanguageModel`). The clearest example of how to actually open a session and prompt Gemini Nano on-device.
+- [Prompt API explainer](https://github.com/webmachinelearning/prompt-api) — the web-standards proposal behind `LanguageModel`, including the `responseConstraint` JSON-schema output.
+- [Chrome built-in AI docs](https://developer.chrome.com/docs/ai/prompt-api) — availability, the one-time model download, and hardware requirements.
 
 ---
 
